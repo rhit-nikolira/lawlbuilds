@@ -1,6 +1,4 @@
-body {
-    display: flex;
-}
+body {}
 
 #homePage {
     background-image: url("https://cdn.britannica.com/s:800x450,c:crop/66/195966-138-F9E7A828/facts-turtles.jpg");
@@ -23,20 +21,69 @@ body {
     text-align: center;
 }
 
-#topRow {
+#buildContainer {
     display: inline-flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%; 
-    height: 100%;
+    flex-flow: wrap;
+    width: 100vw;
+    height: 100vh;
 }
 
-#topColumn {
-    display: inline-flex;
-    flex-direction: column;
-    flex-basis: 100%;
-    flex: 1;
-    border: 1px solid black;
-    width: 100%; 
-    height: 100%;
+#homeContainer {
+    height: 20%;
+    width: 10%;
+    background-color: rgb(40, 0, 0);
+}
+
+#itemsContainer {
+    height: 20%;
+    width: 46.6666%;
+    background-color: rgb(80, 0, 0);
+}
+
+#backContainer {
+    height: 20%;
+    width: 10%;
+    background-color: rgb(120, 0, 0);
+}
+
+#selectContainer {
+    height: 20%;
+    width: 33.3334%;
+    background-color: rgb(0, 40, 0);
+}
+
+#allItemsContainer {
+    height: 80%;
+    width: 80%;
+    background-color: rgb(0, 0, 80);
+}
+
+#champContainer {
+    height: 80%;
+    width: 20%;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    flex-flow: column wrap;
+}
+
+#champImgContainer {
+    width: 100%;
+    height: calc(100%/3);
+    background-color: rgb(0, 80, 0);
+}
+
+#champLvlContainer {
+    height: calc(100%/3);
+    width: 100%;
+    background-color: rgb(0, 120, 0);
+}
+
+#champStatsContainer {
+    height: calc(100%/3);
+    width: 100%;
+    background-color: rgb(0, 0, 40);
+}
+img {
+    object-fit: cover;
+    width: 100%;
 }
