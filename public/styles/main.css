@@ -82,6 +82,12 @@ img {
     width: 100%;
 }
 
+.itemIMG {
+    float:left;
+    object-fit: cover;
+    width: 10%;
+}
+
 i {
     margin-top: 10px;
 }
