@@ -36,32 +36,7 @@ rhit.main = function () {
 		console.log("--Currently on Login page--");
 		new rhit.lawlController();
 		new rhit.lawlManager();
-	}
 
-	if (document.querySelector("#buildPage")) {
-		console.log("--Currently on Build page--");
-		new rhit.buildManager();
-	}
-
-	firebase.auth().onAuthStateChanged((user) => {
-		if (user) {
-			const displayName = user.displayName;
-			const email = user.email;
-			const photoURL = user.photoURL;
-			const phoneNumber = user.phoneNumber;
-			const isAnonymous = user.isAnonymous;
-			const uid = user.uid;
-
-			console.log("The user is signed in ", uid);
-			console.log('displayName :>> ', displayName);
-			console.log('email :>> ', email);
-			console.log('photoURL :>> ', photoURL);
-			console.log('phoneNumber :>> ', phoneNumber);
-			console.log('isAnonymous :>> ', isAnonymous);
-			console.log('uid :>> ', uid);
-		} else {
-			console.log("There is no user signed in");
-		}
 		//	GUEST
 		document.querySelector("#guestButton").onclick = (event) => {
 			firebase.auth().signInAnonymously().catch(function (error) {
@@ -84,17 +59,43 @@ rhit.main = function () {
 					var errorMessage = error.message;
 					console.log("Existing account log in error", errorCode, errorMessage);
 				});
+				window.location.href = `build.html`;
 			};
 		};
-		// //	NEW ACCOUNT
-		// document.querySelector("#registerPanel").onclick = (event) => {
-		// 	console.log(`Log in to email: ${inputEmailEl.value} password: ${inputPasswordEl.value}`);
-		// 	firebase.auth().signInWithEmailAndPassword(inputEmailEl.value, inputPasswordEl.value).catch((error) => {
-		// 		var errorCode = error.code;
-		// 		var errorMessage = error.message;
-		// 		console.log("Existing account log in error", errorCode, errorMessage);
-		// 	});
-		// };
+
+		//	NEW ACCOUNT
+		document.querySelector("#loginButton").onclick = (event) => {
+			document.querySelector("#submitNewAccount").onclick = (event) => {
+				console.log(`Created account: ${inputEmailEl.value} password: ${inputPasswordEl.value}`);
+				firebase.auth().signInWithEmailAndPassword(inputEmailEl.value, inputPasswordEl.value).catch((error) => {
+					var errorCode = error.code;
+					var errorMessage = error.message;
+					console.log("Existing account log in error", errorCode, errorMessage);
+				});
+			};
+		};
+	}
+
+	if (document.querySelector("#buildPage")) {
+		console.log("--Currently on Build page--");
+		new rhit.buildManager();
+	}
+
+	firebase.auth().onAuthStateChanged((user) => {
+		if (user) {
+			const displayName = user.displayName;
+			const email = user.email;
+			const isAnonymous = user.isAnonymous;
+			const uid = user.uid;
+
+			console.log("The user is signed in ", uid);
+			console.log('displayName :>> ', displayName);
+			console.log('email :>> ', email);
+			console.log('isAnonymous :>> ', isAnonymous);
+			console.log('uid :>> ', uid);
+		} else {
+			console.log("There is no user signed in");
+		}
 
 		//	//SIGN OUT
 		// document.querySelector("#signOutButton").onclick = (event) => {
