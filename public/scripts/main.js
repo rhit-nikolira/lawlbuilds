@@ -37,15 +37,35 @@ rhit.main = function () {
 		new rhit.lawlController();
 		new rhit.lawlManager();
 
-		//	GUEST
-		document.querySelector("#guestButton").onclick = (event) => {
-			firebase.auth().signInAnonymously().catch(function (error) {
-				var errorCode = error.code;
-				var errorMessage = error.errorMessage;
-				console.log("Anonymous auth error", errorCode, errorMessage);
-				return;
+		//SIGN OUT
+		document.querySelector("#signOutButton").onclick = (event) => {
+			firebase.auth().signOut().then(() => {
+				console.log("You are now signed out");
+			}).catch((error) => {
+				console.log("Sign out errer");
 			});
-			window.location.href = `build.html`;
+		};
+
+		//	GUEST
+		document.querySelector("#buildPageRedirect").onclick = (event) => {
+			redirect()
+		};
+
+
+		function redirect() {
+			if(firebase.auth().currentUser) {
+				window.location.href = `build.html`;
+			} else {
+				firebase.auth().signInAnonymously().catch(function (error) {
+					var errorCode = error.code;
+					var errorMessage = error.errorMessage;
+					console.log("Anonymous auth error", errorCode, errorMessage);
+					return;
+				});
+				setTimeout(() => {
+					redirect();
+				},500);
+			}
 		};
 
 		//	LOGIN	
@@ -59,7 +79,9 @@ rhit.main = function () {
 					var errorMessage = error.message;
 					console.log("Existing account log in error", errorCode, errorMessage);
 				});
-				window.location.href = `build.html`;
+				setTimeout(() => {
+					redirect();
+				},500);
 			};
 		};
 
@@ -96,15 +118,6 @@ rhit.main = function () {
 		} else {
 			console.log("There is no user signed in");
 		}
-
-		//	//SIGN OUT
-		// document.querySelector("#signOutButton").onclick = (event) => {
-		// 	firebase.auth().signOut().then(() => {
-		// 		console.log("You are now signed out");
-		// 	}).catch((error) => {
-		// 		console.log("Sign out errer");
-		// 	});
-		// };
 	});
 }
 
