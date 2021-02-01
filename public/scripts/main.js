@@ -1,21 +1,10 @@
 /**
- * @fileoverview
- * Provides the JavaScript interactions for all pages.
- *
  * @author 
- * PUT_YOUR_NAME_HERE
+ * Ryan Nikolic,
+ * Keagan Finkenbine
  */
 
-/** namespace. */
 var rhit = rhit || {};
-
-/** globals */
-rhit.variableName = "";
-
-/** function and class syntax examples */
-rhit.functionName = function () {
-	/** function body */
-};
 
 rhit.ClassName = class {
 	constructor() {
@@ -27,10 +16,14 @@ rhit.ClassName = class {
 	}
 }
 
-/* Main */
-/** function and class syntax examples */
 rhit.main = function () {
 	console.log("Ready");
+	document.querySelector("#guestButton").onclick = (event) => {
+		console.log("Pressed Guest");
+	};
+	document.querySelector("#loginButton").onclick = (event) => {
+		console.log("Pressed Login");
+	};
 };
 
 rhit.main();

@@ -1,23 +1,17 @@
 body {}
 
-#homePage {
-    background-image: url("https://cdn.britannica.com/s:800x450,c:crop/66/195966-138-F9E7A828/facts-turtles.jpg");
+#mainPage {
+    /* background-image: url("https://cdn.britannica.com/s:800x450,c:crop/66/195966-138-F9E7A828/facts-turtles.jpg"); */
 }
 
-.navbar {
-    background-color: #800000;
-    color: white;
+#title{
+    background-color: yellow;
 }
-
 .page-container {
     margin-top: 75px;
 }
 
 #title {
-    text-align: center;
-}
-
-#startButton {
     text-align: center;
 }
 
@@ -86,4 +80,12 @@ body {}
 img {
     object-fit: cover;
     width: 100%;
+}
+
+i {
+    margin-top: 10px;
+}
+
+button {
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
