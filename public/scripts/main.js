@@ -8,29 +8,7 @@ var rhit = rhit || {};
 
 rhit.lawlController = class {
 	constructor() {
-		//	GUEST
-		document.querySelector("#guestButton").onclick = (event) => {
-			firebase.auth().signInAnonymously().catch(function (error) {
-				var errorCode = error.code;
-				var errorMessage = error.errorMessage;
-				console.log("Anonymous auth error", errorCode, errorMessage);
-			});
-			window.location.href = `build.html`;
-		};
 
-		const inputEmailEl = document.querySelector("#inputEmail");
-		const inputPasswordEl = document.querySelector("#inputPassword");
-		//	LOGIN	
-		document.querySelector("#loginButton").onclick = (event) => {
-			document.querySelector("#submitLogin").onclick = (event) => {
-				console.log(`Log in to email: ${inputEmailEl.value} password: ${inputPasswordEl.value}`);
-				firebase.auth().signInWithEmailAndPassword(inputEmailEl.value, inputPasswordEl.value).catch((error) => {
-					var errorCode = error.code;
-					var errorMessage = error.message;
-					console.log("Existing account log in error", errorCode, errorMessage);
-				});
-			};
-		};
 	}
 }
 
@@ -84,7 +62,30 @@ rhit.main = function () {
 		} else {
 			console.log("There is no user signed in");
 		}
+		//	GUEST
+		document.querySelector("#guestButton").onclick = (event) => {
+			firebase.auth().signInAnonymously().catch(function (error) {
+				var errorCode = error.code;
+				var errorMessage = error.errorMessage;
+				console.log("Anonymous auth error", errorCode, errorMessage);
+				return;
+			});
+			window.location.href = `build.html`;
+		};
 
+		const inputEmailEl = document.querySelector("#inputEmail");
+		const inputPasswordEl = document.querySelector("#inputPassword");
+		//	LOGIN	
+		document.querySelector("#loginButton").onclick = (event) => {
+			document.querySelector("#submitLogin").onclick = (event) => {
+				console.log(`Log in to email: ${inputEmailEl.value} password: ${inputPasswordEl.value}`);
+				firebase.auth().signInWithEmailAndPassword(inputEmailEl.value, inputPasswordEl.value).catch((error) => {
+					var errorCode = error.code;
+					var errorMessage = error.message;
+					console.log("Existing account log in error", errorCode, errorMessage);
+				});
+			};
+		};
 		// //	NEW ACCOUNT
 		// document.querySelector("#registerPanel").onclick = (event) => {
 		// 	console.log(`Log in to email: ${inputEmailEl.value} password: ${inputPasswordEl.value}`);
