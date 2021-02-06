@@ -26,6 +26,75 @@ rhit.buildManager = class {
 		document.querySelector("#homeButton").onclick = (event) => {
 			window.location.href = '/';
 		};
+		this.updateItems();
+	}
+
+	updateItems() {
+		const newList = htmlToElement('<div id="allItemsContainer"></div>');
+
+		this.getItems();
+		setTimeout(() => {
+			console.log(rhit.itemsFull)
+			console.log(rhit.itemKeys)
+			for (const key of rhit.itemKeys) {
+				const item = rhit.itemsFull.data[key]
+				let re1 = /trinket/;
+				if (!re1.test(item.colloq)&&item.maps[11]) {
+					const newItemCard = htmlToElement(`
+					<div class = "itemIMGcontainer">
+						<div>
+							<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}"></img>
+							<div class="tooltiptext">
+								<div class="itemname">${item.name}</div>
+								<div class="itemplaintext">${item.plaintext}</div>
+								&nbsp
+								<div class="itemdescription">${item.description}</div>
+							</div>
+						</div>
+					</div>
+					`
+					);
+					newItemCard.onmouseover = (event) => {
+						console.log(`You moused over ${item.name}`)
+					}
+					newItemCard.onmouseout = (event) => {
+						console.log(`You left ${item.name}`)
+					}
+					newList.appendChild(newItemCard);
+				}
+			}
+			const oldList = document.querySelector("#allItemsContainer");
+			oldList.removeAttribute("id");
+			oldList.hidden = true;
+			// Put in the new quoteListContainer
+			oldList.parentElement.insertBefore(newList, document.querySelector("#champContainer"));
+		},500);
+	}
+
+	getItems =	function () {
+		console.log("setting up xml");
+		let endpoint = "http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/item.json";
+		let url = endpoint
+	 
+		let xhr = new XMLHttpRequest();
+		xhr.addEventListener("load", this.responseReceivedHandlerItems);
+		xhr.responseType = "json";
+		xhr.open("GET", url);
+		xhr.send();
+	}
+	 
+	responseReceivedHandlerItems = function () {
+		console.log("Getting Response");
+		if (this.status === 200) {
+			console.log("GOT ITEMS");
+			rhit.itemsFull = this.response;
+			rhit.itemKeys = [];
+			for (var obj in this.response.data) {
+				rhit.itemKeys.push(obj);
+			}
+		} else {
+			rhit.itemsFull = null;
+		}
 	}
 }
 
@@ -119,6 +188,14 @@ rhit.main = function () {
 			console.log("There is no user signed in");
 		}
 	});
+
 }
 
 rhit.main();
+
+function htmlToElement(html) {
+	var template = document.createElement('template');
+	html = html.trim();
+	template.innerHTML = html;
+	return template.content.firstChild;
+}
