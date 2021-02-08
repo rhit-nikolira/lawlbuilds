@@ -30,10 +30,33 @@ rhit.buildManager = class {
 	}
 
 	updateItems() {
-		const newList = htmlToElement('<div id="allItemsContainer"></div>');
-
 		this.getItems();
-		setTimeout(() => {
+	}
+
+	getItems =	function () {
+		console.log("setting up xml");
+		let endpoint = "http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/item.json";
+		let url = endpoint
+	 
+		let xhr = new XMLHttpRequest();
+		xhr.addEventListener("load", this.responseReceivedHandlerItems);
+		xhr.responseType = "json";
+		xhr.open("GET", url);
+		xhr.send();
+	}
+	 
+	responseReceivedHandlerItems = function () {
+		console.log("Getting Response");
+		if (this.status === 200) {
+			console.log("GOT ITEMS");
+			rhit.itemsFull = this.response;
+			rhit.itemKeys = [];
+			for (var obj in this.response.data) {
+				rhit.itemKeys.push(obj);
+			}
+			
+			const newList = htmlToElement('<div id="allItemsContainer"></div>');
+
 			console.log(rhit.itemsFull)
 			console.log(rhit.itemKeys)
 			for (const key of rhit.itemKeys) {
@@ -68,30 +91,6 @@ rhit.buildManager = class {
 			oldList.hidden = true;
 			// Put in the new quoteListContainer
 			oldList.parentElement.insertBefore(newList, document.querySelector("#champContainer"));
-		},500);
-	}
-
-	getItems =	function () {
-		console.log("setting up xml");
-		let endpoint = "http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/item.json";
-		let url = endpoint
-	 
-		let xhr = new XMLHttpRequest();
-		xhr.addEventListener("load", this.responseReceivedHandlerItems);
-		xhr.responseType = "json";
-		xhr.open("GET", url);
-		xhr.send();
-	}
-	 
-	responseReceivedHandlerItems = function () {
-		console.log("Getting Response");
-		if (this.status === 200) {
-			console.log("GOT ITEMS");
-			rhit.itemsFull = this.response;
-			rhit.itemKeys = [];
-			for (var obj in this.response.data) {
-				rhit.itemKeys.push(obj);
-			}
 		} else {
 			rhit.itemsFull = null;
 		}
