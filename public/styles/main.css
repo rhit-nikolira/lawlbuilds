@@ -1,12 +1,24 @@
 body {}
 
-#mainPage {
+#loginPage {
     /* background-image: url("https://cdn.britannica.com/s:800x450,c:crop/66/195966-138-F9E7A828/facts-turtles.jpg"); */
+    text-align: center;
+    background-image: url("https://lolstatic-a.akamaihd.net/frontpage/apps/prod/artbook/en_US/f31d8b829b603b4b65fdff2475bd0803ced0179d/assets/content/introduction/cover/i.png");
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    overflow: hidden;
 }
 
-#title{
-    background-color: yellow;
+#loginPage > .img{
+    margin-top: 1000px;
 }
+
+#title {
+    /* background-color: yellow; */
+}
+
 .page-container {
     margin-top: 75px;
 }
@@ -52,7 +64,7 @@ body {}
 
 #allItemsContainer {
     display: inline-flex;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     height: 80%;
     width: 80%;
     background-color: rgb(0, 0, 80);
@@ -102,15 +114,21 @@ i {
     margin-top: 10px;
 }
 
-button {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+.btn {
+    background-color: white;
+    font-family: Beaufort for LOL,serif;
+}
+
+h1 {
+    font-family: serif;
+    font-size: 8.4rem;
 }
 
 .itemIMGcontainer {
     position: relative;
 }
 
-.itemIMGcontainer > div > .tooltiptext {
+.itemIMGcontainer>div>.tooltiptext {
     visibility: hidden;
     background-color: black;
     color: #fff;
@@ -121,19 +139,21 @@ button {
     left: 100%;
     min-width: 300px;
     z-index: 10000;
-  }
-  
-  .itemIMGcontainer:hover > div> .tooltiptext {
+}
+
+.itemIMGcontainer:hover>div>.tooltiptext {
     visibility: visible;
-  }
-  
-  .itemname {
+}
+
+.itemname {
     text-align: center;
     font-size: 1.5em;
-  }
-  .itemplaintext {
+}
+
+.itemplaintext {
     text-align: center;
-  }
-  .itemdescription{
+}
+
+.itemdescription {
     text-align: left;
-  }
+}
