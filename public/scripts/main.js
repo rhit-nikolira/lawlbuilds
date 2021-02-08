@@ -44,6 +44,18 @@ rhit.buildManager = class {
 		xhr.open("GET", url);
 		xhr.send();
 	}
+
+	getChamps =	function () {
+		console.log("setting up xml");
+		let endpoint = "hhttp://jsonviewer.stack.hu/#http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion.json";
+		let url = endpoint
+	 
+		let xhr = new XMLHttpRequest();
+		xhr.addEventListener("load", this.responseReceivedHandlerChamps);
+		xhr.responseType = "json";
+		xhr.open("GET", url);
+		xhr.send();
+	}
 	 
 	responseReceivedHandlerItems = function () {
 		console.log("Getting Response");
@@ -61,6 +73,60 @@ rhit.buildManager = class {
 			console.log(rhit.itemKeys)
 			for (const key of rhit.itemKeys) {
 				const item = rhit.itemsFull.data[key]
+				let re1 = /trinket/;
+				//Map 11: Summoners Rift
+				//Map 12: ARAM
+				//Map 21: TT
+				//Map 22: ???
+				if (!re1.test(item.colloq)&&item.maps[11]) {
+					const newItemCard = htmlToElement(`
+					<div class = "itemIMGcontainer">
+						<div>
+							<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}"></img>
+							<div class="tooltiptext">
+								<div class="itemname">${item.name}</div>
+								<div class="itemplaintext">${item.plaintext}</div>
+								&nbsp
+								<div class="itemdescription">${item.description}</div>
+							</div>
+						</div>
+					</div>
+					`
+					);
+					newItemCard.onmouseover = (event) => {
+						console.log(`You moused over ${item.name}`)
+					}
+					newItemCard.onmouseout = (event) => {
+						console.log(`You left ${item.name}`)
+					}
+					newList.appendChild(newItemCard);
+				}
+			}
+			const oldList = document.querySelector("#allItemsContainer");
+			oldList.removeAttribute("id");
+			oldList.hidden = true;
+			// Put in the new quoteListContainer
+			oldList.parentElement.insertBefore(newList, document.querySelector("#champContainer"));
+		} else {
+			rhit.itemsFull = null;
+		}
+	}
+	responseReceivedHandlerChamps = function () {
+		console.log("Getting Response");
+		if (this.status === 200) {
+			console.log("GOT Champs");
+			rhit.champsFull = this.response;
+			rhit.champKeys = [];
+			for (var obj in this.response.data) {
+				rhit.champKeys.push(obj);
+			}
+			
+			const newList = htmlToElement('');
+
+			console.log(rhit.champsFull)
+			console.log(rhit.champKeys)
+			for (const key of rhit.champKeys) {
+				const item = rhit.champsFull.data[key]
 				let re1 = /trinket/;
 				if (!re1.test(item.colloq)&&item.maps[11]) {
 					const newItemCard = htmlToElement(`
