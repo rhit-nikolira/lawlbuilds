@@ -1,22 +1,51 @@
 body {}
 
 #loginPage {
-    /* background-image: url("https://cdn.britannica.com/s:800x450,c:crop/66/195966-138-F9E7A828/facts-turtles.jpg"); */
+    background-color: black;
     text-align: center;
-    background-image: url("https://lolstatic-a.akamaihd.net/frontpage/apps/prod/artbook/en_US/f31d8b829b603b4b65fdff2475bd0803ced0179d/assets/content/introduction/cover/i.png");
-    background-size: auto;
+    background-image: url("https://lolstatic-a.akamaihd.net/frontpage/apps/prod/signup/en_US/8e94ec10717c7745c7506cd9597327cb3d12485b/assets/en_US/assets/divider.png");
+    /* background-image: url("https://lolstatic-a.akamaihd.net/frontpage/apps/prod/artbook/en_US/f31d8b829b603b4b65fdff2475bd0803ced0179d/assets/content/introduction/cover/i.png"); */
     background-position: center;
     background-repeat: no-repeat;
-    height: 100%;
-    overflow: hidden;
 }
 
 #loginPage > .img{
-    margin-top: 1000px;
+    margin-top: 100vh;
+}
+
+#loginPanel {
+    background-color: black;
+}
+
+#buildPageRedirect, #loginButton, #signOutButton {
+    background-color: black;
+    color:black;
+    /* border: 2px solid #7e633b; */
+    background: linear-gradient(180deg,#ecc572 0,#7e633b);
+}
+
+#inputEmail, #inputPassword, #inputRegisterEmail, #inputRegisterPassword, #inputRepeatPassword {
+    background: transparent;
+    border: 0px solid #7e633b;
+    width: 100%;
+    border-bottom-width: 1px;
+}
+
+.nav-tabs {
+    background-color: black;
+}
+
+/* .nav-link {
+    background-color: #7e633b;
+} */
+
+#loginTab, #registerTab {
+    color: #7e633b;
 }
 
 #title {
-    /* background-color: yellow; */
+    margin-bottom: 100px;
+    color: silver;
 }
 
 .page-container {

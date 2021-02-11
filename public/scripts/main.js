@@ -33,11 +33,11 @@ rhit.buildManager = class {
 		this.getItems();
 	}
 
-	getItems =	function () {
+	getItems = function () {
 		console.log("setting up xml");
 		let endpoint = "http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/item.json";
 		let url = endpoint
-	 
+
 		let xhr = new XMLHttpRequest();
 		xhr.addEventListener("load", this.responseReceivedHandlerItems);
 		xhr.responseType = "json";
@@ -45,18 +45,18 @@ rhit.buildManager = class {
 		xhr.send();
 	}
 
-	getChamps =	function () {
+	getChamps = function () {
 		console.log("setting up xml");
 		let endpoint = "hhttp://jsonviewer.stack.hu/#http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion.json";
 		let url = endpoint
-	 
+
 		let xhr = new XMLHttpRequest();
 		xhr.addEventListener("load", this.responseReceivedHandlerChamps);
 		xhr.responseType = "json";
 		xhr.open("GET", url);
 		xhr.send();
 	}
-	 
+
 	responseReceivedHandlerItems = function () {
 		console.log("Getting Response");
 		if (this.status === 200) {
@@ -66,7 +66,7 @@ rhit.buildManager = class {
 			for (var obj in this.response.data) {
 				rhit.itemKeys.push(obj);
 			}
-			
+
 			const newList = htmlToElement('<div id="allItemsContainer"></div>');
 
 			console.log(rhit.itemsFull)
@@ -78,7 +78,7 @@ rhit.buildManager = class {
 				//Map 12: ARAM
 				//Map 21: TT
 				//Map 22: ???
-				if (!re1.test(item.colloq)&&item.maps[11]) {
+				if (!re1.test(item.colloq) && item.maps[11]) {
 					const newItemCard = htmlToElement(`
 					<div class = "itemIMGcontainer">
 						<div>
@@ -120,7 +120,7 @@ rhit.buildManager = class {
 			for (var obj in this.response.data) {
 				rhit.champKeys.push(obj);
 			}
-			
+
 			const newList = htmlToElement('');
 
 			console.log(rhit.champsFull)
@@ -128,7 +128,7 @@ rhit.buildManager = class {
 			for (const key of rhit.champKeys) {
 				const item = rhit.champsFull.data[key]
 				let re1 = /trinket/;
-				if (!re1.test(item.colloq)&&item.maps[11]) {
+				if (!re1.test(item.colloq) && item.maps[11]) {
 					const newItemCard = htmlToElement(`
 					<div class = "itemIMGcontainer">
 						<div>
@@ -187,7 +187,7 @@ rhit.main = function () {
 
 
 		function redirect() {
-			if(firebase.auth().currentUser) {
+			if (firebase.auth().currentUser) {
 				window.location.href = `build.html`;
 			} else {
 				firebase.auth().signInAnonymously().catch(function (error) {
@@ -198,12 +198,12 @@ rhit.main = function () {
 				});
 				setTimeout(() => {
 					redirect();
-				},500);
+				}, 500);
 			}
 		};
 
-		//	LOGIN	
 		document.querySelector("#loginButton").onclick = (event) => {
+			//	LOGIN	
 			const inputEmailEl = document.querySelector("#inputEmail");
 			const inputPasswordEl = document.querySelector("#inputPassword");
 			document.querySelector("#submitLogin").onclick = (event) => {
@@ -215,21 +215,29 @@ rhit.main = function () {
 				});
 				setTimeout(() => {
 					redirect();
-				},500);
+				}, 500);
+			};
+			// Register
+			document.querySelector("#registerTab").onclick = (event) => {
+				const registerEmail = document.querySelector("#inputRegisterEmail");
+				const registerPassword = document.querySelector("#inputRegisterPassword");
+				const repeatPassword = document.querySelector("#inputRepeatPassword");
+				document.querySelector("#submitRegisterAccount").onclick = (event) => {
+					if (registerPassword == repeatPassword) {
+						console.log(`Registered email: ${registerEmail.value} password: ${registerPassword.value}`);
+						firebase.auth().createUserWithEmailAndPassword(registerEmail.value, registerPassword.value).catch((error) => {
+								var errorCode = error.code;
+								var errorMessage = error.message;
+								console.log("Registering account error", errorCode, errorMessage);
+							});
+					}
+					console.log(`Created account: ${inputEmailEl.value} password: ${inputPasswordEl.value}`);	
+					setTimeout(() => {
+						redirect();
+					}, 500);
+				};
 			};
 		};
-
-		// //	NEW ACCOUNT
-		// document.querySelector("#loginButton").onclick = (event) => {
-		// 	document.querySelector("#submitNewAccount").onclick = (event) => {
-		// 		console.log(`Created account: ${inputEmailEl.value} password: ${inputPasswordEl.value}`);
-		// 		firebase.auth().signInWithEmailAndPassword(inputEmailEl.value, inputPasswordEl.value).catch((error) => {
-		// 			var errorCode = error.code;
-		// 			var errorMessage = error.message;
-		// 			console.log("Existing account log in error", errorCode, errorMessage);
-		// 		});
-		// 	};
-		// };
 	}
 
 	if (document.querySelector("#buildPage")) {
