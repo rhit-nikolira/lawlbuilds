@@ -26,7 +26,17 @@ rhit.buildManager = class {
 		document.querySelector("#homeButton").onclick = (event) => {
 			window.location.href = '/';
 		};
+		document.querySelector("#backButton").onclick = (event) => {
+			window.location.href = '/';
+		};
+		document.querySelector("#selectButton").onclick = (event) => {
+			this.updateChamps();
+		};
 		this.updateItems();
+	}
+
+	updateChamps() {
+		this.getChamps();
 	}
 
 	updateItems() {
@@ -47,7 +57,8 @@ rhit.buildManager = class {
 
 	getChamps = function () {
 		console.log("setting up xml");
-		let endpoint = "hhttp://jsonviewer.stack.hu/#http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion.json";
+		// let endpoint = "http://jsonviewer.stack.hu/#http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion.json";
+		let endpoint = "http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion.json";
 		let url = endpoint
 
 		let xhr = new XMLHttpRequest();
@@ -126,39 +137,31 @@ rhit.buildManager = class {
 			console.log(rhit.champsFull)
 			console.log(rhit.champKeys)
 			for (const key of rhit.champKeys) {
-				const item = rhit.champsFull.data[key]
-				let re1 = /trinket/;
-				if (!re1.test(item.colloq) && item.maps[11]) {
-					const newItemCard = htmlToElement(`
+				const champ = rhit.champsFull.data[key]
+				const newChampCard = htmlToElement(`
 					<div class = "itemIMGcontainer">
 						<div>
-							<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}"></img>
-							<div class="tooltiptext">
-								<div class="itemname">${item.name}</div>
-								<div class="itemplaintext">${item.plaintext}</div>
-								&nbsp
-								<div class="itemdescription">${item.description}</div>
-							</div>
+							<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${champ.image.full}" alt="${champ.name}"></img>
 						</div>
 					</div>
-					`
-					);
-					newItemCard.onmouseover = (event) => {
-						console.log(`You moused over ${item.name}`)
-					}
-					newItemCard.onmouseout = (event) => {
-						console.log(`You left ${item.name}`)
-					}
-					newList.appendChild(newItemCard);
+					`);
+				newChampCard.onmouseover = (event) => {
+					console.log(`You moused over ${champ.name}`)
 				}
+				newChampCard.onmouseout = (event) => {
+					console.log(`You left ${champ.name}`)
+				}
+				document.getElementById("allChampionContainer").appendChild(newChampCard);
+				// newList.appendChild(newChampCard);
 			}
-			const oldList = document.querySelector("#allItemsContainer");
-			oldList.removeAttribute("id");
-			oldList.hidden = true;
-			// Put in the new quoteListContainer
-			oldList.parentElement.insertBefore(newList, document.querySelector("#champContainer"));
-		} else {
-			rhit.itemsFull = null;
+			// 	const oldList = document.querySelector("#allChampionContainer");
+			// 	// oldList.removeAttribute("id");
+			// 	oldList.hidden = true;
+			// 	// Put in the new quoteListContainer
+			// 	oldList.parentElement.insertBefore(newList, document.querySelector("#allChampionContainer"));
+			// } else {
+			// 	rhit.champsFull = null;
+			// }
 		}
 	}
 }
@@ -179,12 +182,10 @@ rhit.main = function () {
 				console.log("Sign out errer");
 			});
 		};
-
 		//	GUEST
 		document.querySelector("#buildPageRedirect").onclick = (event) => {
 			redirect()
 		};
-
 
 		function redirect() {
 			if (firebase.auth().currentUser) {
@@ -226,12 +227,12 @@ rhit.main = function () {
 					if (registerPassword == repeatPassword) {
 						console.log(`Registered email: ${registerEmail.value} password: ${registerPassword.value}`);
 						firebase.auth().createUserWithEmailAndPassword(registerEmail.value, registerPassword.value).catch((error) => {
-								var errorCode = error.code;
-								var errorMessage = error.message;
-								console.log("Registering account error", errorCode, errorMessage);
-							});
+							var errorCode = error.code;
+							var errorMessage = error.message;
+							console.log("Registering account error", errorCode, errorMessage);
+						});
 					}
-					console.log(`Created account: ${inputEmailEl.value} password: ${inputPasswordEl.value}`);	
+					console.log(`Created account: ${inputEmailEl.value} password: ${inputPasswordEl.value}`);
 					setTimeout(() => {
 						redirect();
 					}, 500);

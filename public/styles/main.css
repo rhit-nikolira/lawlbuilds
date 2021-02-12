@@ -206,8 +206,8 @@ i {
 
 h1 {
     font-size: 8vw;
-    font-family: "Times New Roman", Times, serif;
-    font-family: Beaufort for LOL, serif;
+    font-family: "Beaufort for LOL", serif;
+    /* font-family: "Times New Roman", Times, serif; */
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 6px;
@@ -259,3 +259,11 @@ h1 {
 .grid-item {
     border: thin solid #7e633b;
 }
+
+.modal-header {
+    width: 100%;; /*width of your image*/
+    /* height:10vh; height of your image */
+    background-image:url("https://www.teahub.io/photos/full/40-406717_dawnbringer-riven-or-nightbringer-yasuo.jpg");
+    margin:0; /* If you want no margin */
+    padding:0; /*if your want to padding */
+ }
