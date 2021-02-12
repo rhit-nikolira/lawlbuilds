@@ -14,19 +14,20 @@
 <body id="loginPage">
   <div class="container page-container">
     <div id="title">
-    <h1 class="mx-auto scene-heading-mega">Lawl Builds</h1>
+    <h1 class="mx-auto">Lawl Builds</h1>
+    </div>
+    <div id="divider">
+      <img src="https://lolstatic-a.akamaihd.net/frontpage/apps/prod/signup/en_US/8e94ec10717c7745c7506cd9597327cb3d12485b/assets/en_US/assets/divider.png">
     </div>
     <hr>
     <div>
-      <button id="buildPageRedirect" type="button" class="btn btn-lg">Start</button>
+      <button id="buildPageRedirect" type="button" class="btn">Start</button>
     </div>
-    <hr>
     <div>
-      <button id="loginButton" type="button" class="btn btn-lg" data-toggle="modal" data-target="#newLogin">Login</button>
+      <button id="loginButton" type="button" class="btn" data-toggle="modal" data-target="#newLogin">Login</button>
     </div>
-    <hr>
     <div>
-      <button id="signOutButton" type="button" class="btn btn-raised btn-lg"><i class="material-icons">logout</i>&nbsp;&nbsp;&nbsp;Sign Out</button>
+      <button id="signOutButton" type="button" class="btn"><i class="material-icons">logout</i>&nbsp;&nbsp;&nbsp;Sign Out</button>
     </div>
    
 <!--Modal: Login / Register Form-->
@@ -34,7 +35,7 @@
   <div class="modal-dialog cascading-modal" role="document">
     <div class="modal-content"><!--Content-->
       <div class="modal-c-tabs"><!--Modal tabs-->
-        <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
+        <ul class="nav nav-tabs md-tabs tabs-3 light-blue darken-3" role="tablist">
           <li class="nav-item">
             <a id = "loginTab" class="nav-link active" data-toggle="tab" href="#loginPanel" role="tab"><i class="fas fa-user mr-1"></i>
               Login</a>
@@ -44,12 +45,12 @@
               Register</a>
           </li>
         </ul>
-        <div class="tab-content">
+        <div id="tabBody"class="tab-content">
           <div class="tab-pane fade in show active" id="loginPanel" role="tabpanel">
             <div class="modal-body mb-1">
               <div class="md-form form-sm">
-                <label for="inputEmail" class=""></label>
-                <input type="text" id="inputEmail" class="form-control" placeholder="Email">
+                <label for="inputEmail"></label>
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email"> <span class="focus-border"></span>
               </div>
               <div class="md-form form-sm">
                 <i class="fas fa-lock prefix"></i>
@@ -59,8 +60,8 @@
             </div>
             <!--Footer-->
             <div class="modal-footer">
-              <button type="button" class="btn btn-outline-info" data-dismiss="modal">Close</button>
-              <button id="submitLogin" type="button" class="btn btn-outline-info">Log in</button>
+              <button id="submitClose" type="button" class="btn" data-dismiss="modal">Close</button>
+              <button id="submitLogin" type="button" class="btn">Log in</button>
             </div>
           </div>
 
@@ -87,8 +88,8 @@
             </div>
             <!--Footer-->
             <div class="modal-footer">
-              <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
-              <button id="submitRegisterAccount" class="btn btn-outline-info">Create</button>
+              <button id="submitClose" type="button" class="btn" data-dismiss="modal">Close</button>
+              <button id="submitRegisterAccount" class="btn">Create</button>
             </div>
           </div>
         </div>

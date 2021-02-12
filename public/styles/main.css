@@ -3,49 +3,66 @@ body {}
 #loginPage {
     background-color: black;
     text-align: center;
-    background-image: url("https://lolstatic-a.akamaihd.net/frontpage/apps/prod/signup/en_US/8e94ec10717c7745c7506cd9597327cb3d12485b/assets/en_US/assets/divider.png");
     /* background-image: url("https://lolstatic-a.akamaihd.net/frontpage/apps/prod/artbook/en_US/f31d8b829b603b4b65fdff2475bd0803ced0179d/assets/content/introduction/cover/i.png"); */
     background-position: center;
     background-repeat: no-repeat;
 }
 
-#loginPage > .img{
-    margin-top: 100vh;
-}
-
-#loginPanel {
+#loginPanel,
+#registerPanel, #tabBody {
     background-color: black;
 }
+.nav-tabs{
+    background-color: #3b3b3b !important; 
+}
 
-#buildPageRedirect, #loginButton, #signOutButton {
-    background-color: black;
-    color:black;
+.modal {
+    position: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0px -50px -50px -50px;
+    
+}
+
+#buildPageRedirect,
+#loginButton,
+#signOutButton {
     /* border: 2px solid #7e633b; */
-    background: linear-gradient(180deg,#ecc572 0,#7e633b);
+    color: #7e633b;
+    position: relative;
+    /* background: linear-gradient(180deg,#ecc572 0,#815500); */
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
 }
 
-#inputEmail, #inputPassword, #inputRegisterEmail, #inputRegisterPassword, #inputRepeatPassword {
-    background: transparent;
-    border: 0px solid #7e633b;
-    width: 100%;
-    border-bottom-width: 1px;
+#submitLogin,
+#submitClose,
+#submitRegisterAccount {
+    margin-right: 5px;
+    color: #ecc572;
+    transition: none;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+.form-control {
+    border-bottom: 2px solid #ecc572;
+    border-color: #ecc572;
 }
 
 .nav-tabs {
     background-color: black;
 }
 
-/* .nav-link {
-    background-color: #7e633b;
-} */
-
-#loginTab, #registerTab {
-    color: #7e633b;
+#loginTab,
+#registerTab {
+    color: #ecc572;
 }
 
 #title {
-    margin-bottom: 100px;
-    color: silver;
+    color: white;
 }
 
 .page-container {
@@ -71,9 +88,13 @@ body {}
     position: relative;
 }
 
-#homeButton {
+#homeButton,
+#backButton,
+#selectButton {
     position: absolute;
-    bottom: 0;                  
+    bottom: 0;
+    background-color: black;
+    color: #7e633b;
 }
 
 #itemsContainer {
@@ -86,7 +107,7 @@ body {}
 
 #backButton {
     position: absolute;
-    bottom: 0;                  
+    bottom: 0;
 }
 
 #backContainer {
@@ -105,6 +126,7 @@ body {}
     position: relative;
     justify-content: center;
 }
+
 #selectButton {
     position: absolute;
     bottom: 0;
@@ -163,13 +185,32 @@ i {
 }
 
 .btn {
-    background-color: white;
-    font-family: Beaufort for LOL,serif;
+    border-radius: 0 !important;
+    font-family: serif;
+    border: 0 solid;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
+    outline: 1px solid;
+    outline-color:#7e633b;
+    outline-offset: 0px;
+    transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.btn:hover {
+    border: 1px solid;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
+    outline-color: rgba(255, 255, 255, 0);
+    outline-offset: 15px;
+    text-shadow: 1px 1px 2px #ecc572;
 }
 
 h1 {
-    font-family: serif;
-    font-size: 8.4rem;
+    font-size: 8vw;
+    font-family: "Times New Roman", Times, serif;
+    font-family: Beaufort for LOL, serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    line-height: 1.16;
 }
 
 .itemIMGcontainer {
