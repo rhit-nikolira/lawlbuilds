@@ -1,9 +1,12 @@
-body {}
+body {
+    /* background-color: black; */
+    /* background-image: url("https://wallpapercave.com/wp/wp3484903.jpg"); */
+}
 
 #loginPage {
-    background-color: black;
+    /* background-image: url("https://wallpapercave.com/wp/wp3159847.jpg"); */
+    background-image: url("http://lol-stats.net/uploads/X0geMjIXBEZOVO5U7CvrqJW3shfN1NaI57cmgyxZ.jpeg");
     text-align: center;
-    /* background-image: url("https://lolstatic-a.akamaihd.net/frontpage/apps/prod/artbook/en_US/f31d8b829b603b4b65fdff2475bd0803ced0179d/assets/content/introduction/cover/i.png"); */
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -32,6 +35,7 @@ body {}
     /* border: 2px solid #7e633b; */
     color: #7e633b;
     position: relative;
+    /* background-color: rgba(0, 0, 0, 0.8); */
     /* background: linear-gradient(180deg,#ecc572 0,#815500); */
     font-size: 1.8rem;
     letter-spacing: 3px;
@@ -251,8 +255,8 @@ h1 {
     justify-content: center;
     background-color: transparent;
     display: grid;
-    grid-template-columns: repeat(3, 70px);
-    grid-template-rows: repeat(3, 70px);
+    grid-template-columns: repeat(3, 69px);
+    grid-template-rows: repeat(3, 69px);
 }
 
 .grid-item {
@@ -282,4 +286,9 @@ h1 {
     width: 100%;
     background-color: black;
     text-align: center;
+}
+
+.hxNeHv {
+    display: flex;
+    flex-direction: row;
 }

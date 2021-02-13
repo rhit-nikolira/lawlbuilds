@@ -7,6 +7,7 @@
 var rhit = rhit || {};
 let currentChampion = "";
 let champsFull = null;
+let itemContainerCounter = 1;
 
 rhit.lawlController = class {
 	constructor() {
@@ -39,6 +40,7 @@ rhit.buildManager = class {
 
 	updateChamps() {
 		this.getChamps();
+		
 	}
 
 	updateItems() {
@@ -110,161 +112,166 @@ rhit.buildManager = class {
 						console.log(`You moused over ${item.name}`)
 					}
 					newItemCard.onclick = (event) => {
-
+						if(itemContainerCounter < 7) {
+							console.log("new item");
+							document.querySelector(`#grid-item-${itemContainerCounter++}`).innerHTML = `<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}"></img>`;
+						}
 					}
-					
-					newList.appendChild(newItemCard);
+					document.querySelector("#allItemsContainer").appendChild(newItemCard);
+					// newList.appendChild(newItemCard);
 				}
 			}
-			const oldList = document.querySelector("#allItemsContainer");
-			oldList.removeAttribute("id");
-			oldList.hidden = true;
-			// Put in the new quoteListContainer
-			oldList.parentElement.insertBefore(newList, document.querySelector("#champContainer"));
-		} else {
-			rhit.itemsFull = null;
+			// 	const oldList = document.querySelector("#allItemsContainer");
+			// 	oldList.removeAttribute("id");
+			// 	oldList.hidden = true;
+			// 	// Put in the new quoteListContainer
+			// 	oldList.parentElement.insertBefore(newList, document.querySelector("#champContainer"));
+			// } else {
+			// 	rhit.itemsFull = null;
+			// }
 		}
 	}
-	responseReceivedHandlerChamps = function () {
-		if(rhit.champsFull == null) {
 
-		console.log("Getting Response");
-		if (this.status === 200) {
-			console.log("GOT Champs");
-			rhit.champsFull = this.response;
-			rhit.champKeys = [];
-			for (var obj in this.response.data) {
-				rhit.champKeys.push(obj);
-			}
+		responseReceivedHandlerChamps = function () {
+			if (rhit.champsFull == null) {
 
-			const newList = htmlToElement('');
+				console.log("Getting Response");
+				if (this.status === 200) {
+					console.log("GOT Champs");
+					rhit.champsFull = this.response;
+					rhit.champKeys = [];
+					for (var obj in this.response.data) {
+						rhit.champKeys.push(obj);
+					}
 
-			console.log(rhit.champsFull)
-			console.log(rhit.champKeys)
-			for (const key of rhit.champKeys) {
-				const champ = rhit.champsFull.data[key]
-				const newChampCard = htmlToElement(`
+					const newList = htmlToElement('');
+
+					console.log(rhit.champsFull)
+					console.log(rhit.champKeys)
+					for (const key of rhit.champKeys) {
+						const champ = rhit.champsFull.data[key]
+						const newChampCard = htmlToElement(`
 					<div class ="grid-container">
 						<div class="grid-item">
 							<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}">
 						</div>
 					</div>
 					`);
-				newChampCard.onclick = (event) => {
-					currentChampion = champ.name;
-					document.querySelector("#champImgContainer").innerHTML = `<div><img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}"></div>`;
-					console.log("close modal");
-					setTimeout(() => {
-						$('#championModal').modal('hide');
-					}, 200);
+						newChampCard.onclick = (event) => {
+							currentChampion = champ;
+							document.querySelector("#champImgContainer").innerHTML = `<div><img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}"></div>`;
+							console.log("close modal");
+							setTimeout(() => {
+								$('#championModal').modal('hide');
+							}, 200);
+						}
+						document.getElementById("allChampionContainer").appendChild(newChampCard);
+					}
 				}
-				document.getElementById("allChampionContainer").appendChild(newChampCard);
-			}			
+			}
 		}
 	}
-}
-}
 
-rhit.main = function () {
-	console.log("Ready");
+	rhit.main = function () {
+		console.log("Ready");
 
-	if (document.querySelector("#loginPage")) {
-		console.log("--Currently on Login page--");
-		new rhit.lawlController();
-		new rhit.lawlManager();
+		if (document.querySelector("#loginPage")) {
+			console.log("--Currently on Login page--");
+			new rhit.lawlController();
+			new rhit.lawlManager();
 
-		//SIGN OUT
-		document.querySelector("#signOutButton").onclick = (event) => {
-			firebase.auth().signOut().then(() => {
-				console.log("You are now signed out");
-			}).catch((error) => {
-				console.log("Sign out errer");
-			});
-		};
-		//	GUEST
-		document.querySelector("#buildPageRedirect").onclick = (event) => {
-			redirect()
-		};
-
-		function redirect() {
-			if (firebase.auth().currentUser) {
-				window.location.href = `build.html`;
-			} else {
-				firebase.auth().signInAnonymously().catch(function (error) {
-					var errorCode = error.code;
-					var errorMessage = error.errorMessage;
-					console.log("Anonymous auth error", errorCode, errorMessage);
-					return;
+			//SIGN OUT
+			document.querySelector("#signOutButton").onclick = (event) => {
+				firebase.auth().signOut().then(() => {
+					console.log("You are now signed out");
+				}).catch((error) => {
+					console.log("Sign out errer");
 				});
-				setTimeout(() => {
-					redirect();
-				}, 500);
-			}
-		};
-
-		document.querySelector("#loginButton").onclick = (event) => {
-			//	LOGIN	
-			const inputEmailEl = document.querySelector("#inputEmail");
-			const inputPasswordEl = document.querySelector("#inputPassword");
-			document.querySelector("#submitLogin").onclick = (event) => {
-				console.log(`Log in to email: ${inputEmailEl.value} password: ${inputPasswordEl.value}`);
-				firebase.auth().signInWithEmailAndPassword(inputEmailEl.value, inputPasswordEl.value).catch((error) => {
-					var errorCode = error.code;
-					var errorMessage = error.message;
-					console.log("Existing account log in error", errorCode, errorMessage);
-				});
-				setTimeout(() => {
-					redirect();
-				}, 500);
 			};
-			// Register
-			document.querySelector("#registerTab").onclick = (event) => {
-				const registerEmail = document.querySelector("#inputRegisterEmail");
-				const registerPassword = document.querySelector("#inputRegisterPassword");
-				const repeatPassword = document.querySelector("#inputRepeatPassword");
-				document.querySelector("#submitRegisterAccount").onclick = (event) => {
-					if (registerPassword == repeatPassword) {
-						console.log(`Registered email: ${registerEmail.value} password: ${registerPassword.value}`);
-						firebase.auth().createUserWithEmailAndPassword(registerEmail.value, registerPassword.value).catch((error) => {
-							var errorCode = error.code;
-							var errorMessage = error.message;
-							console.log("Registering account error", errorCode, errorMessage);
-						});
-					}
-					console.log(`Created account: ${inputEmailEl.value} password: ${inputPasswordEl.value}`);
+			//	GUEST
+			document.querySelector("#buildPageRedirect").onclick = (event) => {
+				redirect()
+			};
+
+			function redirect() {
+				if (firebase.auth().currentUser) {
+					window.location.href = `build.html`;
+				} else {
+					firebase.auth().signInAnonymously().catch(function (error) {
+						var errorCode = error.code;
+						var errorMessage = error.errorMessage;
+						console.log("Anonymous auth error", errorCode, errorMessage);
+						return;
+					});
+					setTimeout(() => {
+						redirect();
+					}, 500);
+				}
+			};
+
+			document.querySelector("#loginButton").onclick = (event) => {
+				//	LOGIN	
+				const inputEmailEl = document.querySelector("#inputEmail");
+				const inputPasswordEl = document.querySelector("#inputPassword");
+				document.querySelector("#submitLogin").onclick = (event) => {
+					console.log(`Log in to email: ${inputEmailEl.value} password: ${inputPasswordEl.value}`);
+					firebase.auth().signInWithEmailAndPassword(inputEmailEl.value, inputPasswordEl.value).catch((error) => {
+						var errorCode = error.code;
+						var errorMessage = error.message;
+						console.log("Existing account log in error", errorCode, errorMessage);
+					});
 					setTimeout(() => {
 						redirect();
 					}, 500);
 				};
+				// Register
+				document.querySelector("#registerTab").onclick = (event) => {
+					const registerEmail = document.querySelector("#inputRegisterEmail");
+					const registerPassword = document.querySelector("#inputRegisterPassword");
+					const repeatPassword = document.querySelector("#inputRepeatPassword");
+					document.querySelector("#submitRegisterAccount").onclick = (event) => {
+						if (registerPassword == repeatPassword) {
+							console.log(`Registered email: ${registerEmail.value} password: ${registerPassword.value}`);
+							firebase.auth().createUserWithEmailAndPassword(registerEmail.value, registerPassword.value).catch((error) => {
+								var errorCode = error.code;
+								var errorMessage = error.message;
+								console.log("Registering account error", errorCode, errorMessage);
+							});
+						}
+						console.log(`Created account: ${inputEmailEl.value} password: ${inputPasswordEl.value}`);
+						setTimeout(() => {
+							redirect();
+						}, 500);
+					};
+				};
 			};
-		};
-	}
-
-	if (document.querySelector("#buildPage")) {
-		console.log("--Currently on Build page--");
-		new rhit.buildManager();
-	}
-
-	firebase.auth().onAuthStateChanged((user) => {
-		if (user) {
-			const displayName = user.displayName;
-			const email = user.email;
-			const isAnonymous = user.isAnonymous;
-			const uid = user.uid;
-
-			console.log("The user is signed in ", uid);
-			console.log('displayName :>> ', displayName);
-			console.log('email :>> ', email);
-			console.log('isAnonymous :>> ', isAnonymous);
-			console.log('uid :>> ', uid);
-		} else {
-			console.log("There is no user signed in");
 		}
-	});
 
-}
+		if (document.querySelector("#buildPage")) {
+			console.log("--Currently on Build page--");
+			new rhit.buildManager();
+		}
 
-rhit.main();
+		firebase.auth().onAuthStateChanged((user) => {
+			if (user) {
+				const displayName = user.displayName;
+				const email = user.email;
+				const isAnonymous = user.isAnonymous;
+				const uid = user.uid;
+
+				console.log("The user is signed in ", uid);
+				console.log('displayName :>> ', displayName);
+				console.log('email :>> ', email);
+				console.log('isAnonymous :>> ', isAnonymous);
+				console.log('uid :>> ', uid);
+			} else {
+				console.log("There is no user signed in");
+			}
+		});
+
+	}
+
+	rhit.main();
 
 function htmlToElement(html) {
 	var template = document.createElement('template');
