@@ -49,8 +49,10 @@ body {}
 }
 
 .form-control {
-    border-bottom: 2px solid #ecc572;
+    border-bottom: 1px solid #ecc572;
     border-color: #ecc572;
+    transition: linear;
+    
 }
 
 .nav-tabs {
@@ -125,12 +127,6 @@ body {}
     background-color: black;
     order: 4;
     position: relative;
-    justify-content: center;
-}
-
-#selectButton {
-    position: absolute;
-    bottom: 0;
 }
 
 #allItemsContainer {
@@ -145,7 +141,7 @@ body {}
 #champContainer {
     height: 80%;
     width: 20%;
-    background-color:black;
+    background-color: black;
     display: flex;
     flex-flow: column wrap;
     order: 6;
@@ -201,7 +197,6 @@ i {
     box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
     outline-color: rgba(255, 255, 255, 0);
     outline-offset: 15px;
-    text-shadow: 1px 1px 2px #ecc572;
 }
 
 h1 {
@@ -261,9 +256,26 @@ h1 {
 }
 
 .modal-header {
-    width: 100%;; /*width of your image*/
-    /* height:10vh; height of your image */
-    background-image:url("https://www.teahub.io/photos/full/40-406717_dawnbringer-riven-or-nightbringer-yasuo.jpg");
-    margin:0; /* If you want no margin */
-    padding:0; /*if your want to padding */
- }
+    width: 100%;
+    height:15vh;
+    background-color: black;
+    background-image: url("https://img.rankedboost.com/wp-content/uploads/2016/06/Season_2019_-_Default_Trim.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+}
+
+.grid-container {
+    position: relative;
+    display: block;
+}
+   
+#allChampionContainer {
+    display: inline-flex;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    text-align: center;
+}

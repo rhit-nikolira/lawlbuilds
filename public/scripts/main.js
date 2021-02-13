@@ -5,6 +5,8 @@
  */
 
 var rhit = rhit || {};
+let currentChampion = "";
+let champsFull = null;
 
 rhit.lawlController = class {
 	constructor() {
@@ -123,6 +125,8 @@ rhit.buildManager = class {
 		}
 	}
 	responseReceivedHandlerChamps = function () {
+		if(rhit.champsFull == null) {
+
 		console.log("Getting Response");
 		if (this.status === 200) {
 			console.log("GOT Champs");
@@ -139,31 +143,25 @@ rhit.buildManager = class {
 			for (const key of rhit.champKeys) {
 				const champ = rhit.champsFull.data[key]
 				const newChampCard = htmlToElement(`
-					<div class = "itemIMGcontainer">
-						<div>
-							<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${champ.image.full}" alt="${champ.name}"></img>
+					<div class ="grid-container">
+						<div class="grid-item">
+							<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}">
 						</div>
 					</div>
 					`);
-				newChampCard.onmouseover = (event) => {
-					console.log(`You moused over ${champ.name}`)
-				}
-				newChampCard.onmouseout = (event) => {
-					console.log(`You left ${champ.name}`)
+				newChampCard.onclick = (event) => {
+					currentChampion = champ.name;
+					document.querySelector("#champImgContainer").innerHTML = `<div><img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}"></div>`;
+					console.log("close modal");
+					setTimeout(() => {
+						$('#championModal').modal('hide');
+					}, 200);
 				}
 				document.getElementById("allChampionContainer").appendChild(newChampCard);
-				// newList.appendChild(newChampCard);
-			}
-			// 	const oldList = document.querySelector("#allChampionContainer");
-			// 	// oldList.removeAttribute("id");
-			// 	oldList.hidden = true;
-			// 	// Put in the new quoteListContainer
-			// 	oldList.parentElement.insertBefore(newList, document.querySelector("#allChampionContainer"));
-			// } else {
-			// 	rhit.champsFull = null;
-			// }
+			}			
 		}
 	}
+}
 }
 
 rhit.main = function () {
