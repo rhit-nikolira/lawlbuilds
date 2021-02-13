@@ -215,8 +215,8 @@ h1 {
 
 .itemIMGcontainer>div>.tooltiptext {
     visibility: hidden;
-    background-color: black;
-    color: #fff;
+    background-color: rgba(0,0,0,0.9);
+    color: #7e633b;
     border-radius: 6px;
     padding: 5px 0;
     position: absolute;
@@ -224,6 +224,10 @@ h1 {
     left: 100%;
     min-width: 300px;
     z-index: 10000;
+}
+
+.tooltiptext:hover {
+    display: none;
 }
 
 .itemIMGcontainer:hover>div>.tooltiptext {

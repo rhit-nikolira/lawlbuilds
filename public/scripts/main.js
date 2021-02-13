@@ -109,9 +109,10 @@ rhit.buildManager = class {
 					newItemCard.onmouseover = (event) => {
 						console.log(`You moused over ${item.name}`)
 					}
-					newItemCard.onmouseout = (event) => {
-						console.log(`You left ${item.name}`)
+					newItemCard.onclick = (event) => {
+
 					}
+					
 					newList.appendChild(newItemCard);
 				}
 			}
