@@ -274,6 +274,8 @@ h1 {
 
 .grid-item {
     border: thin solid #7e633b;
+    /* width: 59px;
+    height: 59px; */
 }
 
 .modal-header {
