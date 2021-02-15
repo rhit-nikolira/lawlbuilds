@@ -285,6 +285,8 @@ h1 {
     background-repeat: no-repeat;
     margin: 0;
     padding: 0;
+    border-radius: 0%;
+
 }
 
 .grid-container {
@@ -299,9 +301,4 @@ h1 {
     width: 100%;
     background-color: black;
     text-align: center;
-}
-
-.hxNeHv {
-    display: flex;
-    flex-direction: row;
 }
