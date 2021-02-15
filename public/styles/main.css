@@ -177,6 +177,9 @@ body {
     height: calc(100%/3);
     width: 100%;
 }
+#champStatsContainer>div {
+    color: white;
+}
 
 #champImgContainer {
     width: 80%;

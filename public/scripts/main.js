@@ -60,6 +60,7 @@ rhit.updateChampStats = function () {
 	itemAbilityPowerPercent = 1;
 	itemCriticalChance = 0
 	itemLifesteal = 0;
+	itemAbilityHaste = 0;
 
 	bonusHealth = 0
 	bonusHealthRegen = 0
@@ -88,9 +89,6 @@ rhit.updateChampStats = function () {
 	levelAttackRange = 0
 
 	baseAttackSpeed = 0
-
-
-
 
 	if (champ) {
 		bonusHealth += champ.stats.hpperlevel
@@ -131,6 +129,7 @@ rhit.updateChampStats = function () {
 	//No items with %AP
 	//Items do not have a MPRegen Stat
 	//Lifesteal is only a percent while crit is flat?????? ?????? <- WTF IS THIS RIOT
+	//Items do not have Ability Haste
 
 	for (const item of items) {
 		console.log(item);
@@ -140,26 +139,28 @@ rhit.updateChampStats = function () {
 			itemArmor += item.stats.FlatArmorMod || 0;
 			itemArmorPercent += item.stats.PercentMovementSpeedMod || 0;
 			itemHealth += item.stats.FlatHPPoolMod || 0;
-			//itemHealthPercent += item.stats.PercentHPPoolMod || 0;
+			itemHealthPercent += item.stats.PercentHPPoolMod || 0;
 			//itemHealthRegen += 
 			//itemHealthRegenPercent +=
 			itemMagicResist += item.stats.FlatSpellBlockMod || 0;
-			//itemMagicResistPercent += item.stats.PercentSpellBlockMod || 0;
+			itemMagicResistPercent += item.stats.PercentSpellBlockMod || 0;
 			itemMana += item.stats.FlatMPPoolMod || 0;
-			//itemManaPercent += item.stats.PercentMPPoolMod || 0;
+			itemManaPercent += item.stats.PercentMPPoolMod || 0;
 			itemAttackDamage += item.stats.FlatPhysicalDamageMod || 0;
-			//itemAttackDamagePercent += item.stats.PercentPhysicalDamageMod || 0;
+			itemAttackDamagePercent += item.stats.PercentPhysicalDamageMod || 0;
 			itemAbilityPower += item.stats.FlatMagicDamageMod || 0;
-			//itemAbilityPowerPercent += item.stats.PercentMagicDamageMod || 0;
+			itemAbilityPowerPercent += item.stats.PercentMagicDamageMod || 0;
 			//itemManaRegen += 
 			//itemManaRegenPercent +=  
 			itemCriticalChance += item.stats.FlatCritChanceMod || 0;
 			itemLifesteal += item.stats.PercentLifeStealMod || 0;
+			//itemAbilityHaste += 
 		}
 	}
 
 	rhit.champ = new rhit.champSet();
 
+	rhit.champ.level = level;
 	rhit.champ.health = 			(levelHealth + itemHealth)*itemHealthPercent
 	rhit.champ.healthRegen = 		(levelHealthRegen + itemHealthRegen)*itemHealthRegenPercent
 	rhit.champ.armor = 				(levelArmor + itemArmor)*itemArmorPercent
@@ -189,8 +190,31 @@ rhit.updateChampStats = function () {
 	rhit.champ.abilityPower = 		(levelAbilityPower+itemAbilityPower)*itemAbilityPowerPercent
 	rhit.champ.attackRange = 		levelAttackRange
 	rhit.champ.lifeSteal = 			itemLifesteal	
+	rhit.champ.abilityHaste = 		itemAbilityHaste
 	
 	rhit.champ.attackSpeed = 		baseAttackSpeed
+	console.log(document.querySelector("#LV"));
+	document.querySelector("#LV").innerHTML=rhit.champ.level.toFixed(0);
+	document.querySelector("#AP").innerHTML=rhit.champ.abilityPower.toFixed(2);
+	document.querySelector("#AM").innerHTML=rhit.champ.armor.toFixed(2)
+	document.querySelector("#AD").innerHTML=rhit.champ.attackDamage.toFixed(2)
+	document.querySelector("#AR").innerHTML=rhit.champ.attackRange.toFixed(2)
+	document.querySelector("#AS").innerHTML=rhit.champ.attackSpeed.toFixed(2)
+	document.querySelector("#CC").innerHTML=rhit.champ.criticalChance.toFixed(2)
+	document.querySelector("#CD").innerHTML=rhit.champ.criticalDamage.toFixed(2)
+	document.querySelector("#HP").innerHTML=rhit.champ.health.toFixed(2)
+	document.querySelector("#HR").innerHTML=rhit.champ.healthRegen.toFixed(2)
+	document.querySelector("#VP").innerHTML=rhit.champ.lifeSteal.toFixed(2)
+	document.querySelector("#MM").innerHTML=rhit.champ.magicResist.toFixed(2)
+	document.querySelector("#MP").innerHTML=rhit.champ.mana.toFixed(2)
+	document.querySelector("#MR").innerHTML=rhit.champ.manaRegen.toFixed(2)
+	document.querySelector("#MS").innerHTML=rhit.champ.moveSpeed.toFixed(2)
+	document.querySelector("#AH").innerHTML=rhit.champ.abilityHaste.toFixed(2)
+
+
+
+
+
 	console.log(rhit.champ);
 }
 
