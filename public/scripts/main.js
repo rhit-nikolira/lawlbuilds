@@ -82,7 +82,7 @@ rhit.buildManager = class {
 				rhit.itemKeys.push(obj);
 			}
 
-			const newList = htmlToElement('<div id="allItemsContainer"></div>');
+			const newList = htmlToElement('');
 
 			console.log(rhit.itemsFull)
 			console.log(rhit.itemKeys)
@@ -97,7 +97,7 @@ rhit.buildManager = class {
 					const newItemCard = htmlToElement(`
 					<div class = "itemIMGcontainer">
 						<div>
-							<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}"></img>
+							<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}">
 							<div class="tooltiptext">
 								<div class="itemname">${item.name}</div>
 								<div class="itemplaintext">${item.plaintext}</div>
@@ -108,9 +108,9 @@ rhit.buildManager = class {
 					</div>
 					`
 					);
-					newItemCard.onmouseover = (event) => {
-						console.log(`You moused over ${item.name}`)
-					}
+					// newItemCard.onmouseover = (event) => {
+					// 	console.log(`You moused over ${item.name}`)
+					// }
 					newItemCard.onclick = (event) => {
 						if(itemContainerCounter < 7) {
 							console.log("new item");
@@ -159,7 +159,7 @@ rhit.buildManager = class {
 					`);
 						newChampCard.onclick = (event) => {
 							currentChampion = champ;
-							document.querySelector("#champImgContainer").innerHTML = `<div><img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}"></div>`;
+							document.querySelector("#championImage").innerHTML = `<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}" style="width:58%;">`;
 							console.log("close modal");
 							setTimeout(() => {
 								$('#championModal').modal('hide');

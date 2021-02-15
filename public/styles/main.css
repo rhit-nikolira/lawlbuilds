@@ -11,6 +11,13 @@ body {
     background-repeat: no-repeat;
 }
 
+#buildPage {
+    /* background-image: url("https://pngimage.net/wp-content/uploads/2019/05/league-of-legends-jungle-map-png-1.png"); */
+    /* background-image: url("https://lolstatic-a.akamaihd.net/frontpage/apps/prod/clash-2018/en_US/a46e742ae82f9d4f9db8e34ba57873e513e727b7/assets/static/img/backgrounds/redeemed-bg.jpg"); */
+    /* background-image: url("https://lh3.googleusercontent.com/proxy/H7c4Rlyj_zhO8azC_IWmpiAIKycxcChc1ommaF5Uh87a1825rmQiHdReyhoEeh5bMZaNqID3uZMQOB-Ii8KAkMyHJQNhbkqhA4uCpRL9rbm0BxGenFHe9Ox3wKFvIuFqWWkeO5o5D27vYkAM1zsPkBZAbBFMxlh7I8-9S6r-_ZyR"); */
+    background-image: url("https://thumbs.gfycat.com/CompleteDecisiveKarakul-size_restricted.gif");
+}
+
 #loginPanel,
 #registerPanel,
 #tabBody {
@@ -69,30 +76,40 @@ body {
 }
 
 #title {
+    margin-top: 5vh;
     color: white;
-}
-
-.page-container {
-    margin-top: 75px;
-}
-
-#title {
-    text-align: center;
 }
 
 #buildContainer {
     display: inline-flex;
     flex-flow: wrap;
-    width: 100vw;
-    height: 100vh;
+    /* width: 100vw; */
+    height: 120vh;
+}
+
+#borderContainer {
+    width: 2%;
+    height: 20%;
+    order: 1;
 }
 
 #homeContainer {
     height: 20%;
     width: 5%;
-    background-color: black;
-    order: 1;
+    order: 2;
     position: relative;
+}
+
+#itemsContainer {
+    height: 20%;
+    width: 66%;
+    order: 3;
+    position: relative;
+    text-align: center;
+}
+
+#title {
+    text-align: center;
 }
 
 #homeButton,
@@ -104,14 +121,6 @@ body {
     color: #7e633b;
 }
 
-#itemsContainer {
-    height: 20%;
-    width: 70%;
-    background-color: black;
-    order: 2;
-    position: relative;
-}
-
 #backButton {
     position: absolute;
     bottom: 0;
@@ -120,66 +129,70 @@ body {
 #backContainer {
     height: 20%;
     width: 5%;
-    background-color: black;
-    order: 3;
+    order: 4;
     position: relative;
+}
+
+#borderContainer-2 {
+    height: 20%;
+    width: 2%;
+    order: 5;
 }
 
 #selectContainer {
     height: 20%;
     width: 20%;
-    background-color: black;
-    order: 4;
+    order: 6;
     position: relative;
+}
+
+#borderContainer-3 {
+    width: 2%;
+    height: 80%;
+    order: 7;
 }
 
 #allItemsContainer {
     display: inline-flex;
     flex-wrap: wrap;
     height: 80%;
-    width: 80%;
-    background-color: black;
-    order: 5
+    width: 71%;
+    order: 8;
 }
 
 #champContainer {
     height: 80%;
-    width: 20%;
-    background-color: black;
+    width: 27%;
     display: flex;
     flex-flow: column wrap;
-    order: 6;
-}
-
-#champImgContainer {
-    width: 100%;
-    height: calc(100%/3);
-    background-color: black;
+    order: 9;
 }
 
 #champLvlContainer {
     height: calc(100%/3);
     width: 100%;
-    background-color: black;
 }
 
 #champStatsContainer {
     height: calc(100%/3);
     width: 100%;
-    background-color: black;
+}
+
+#champImgContainer {
+    width: 80%;
 }
 
 /* img {
     object-fit: cover;
     width: 100%;
-}
+}*/
 
 .itemIMG {
-    float:left;
-    object-fit: cover;
-    width: 10%;
-    position: relative;
-} */
+    border: 1px solid #7e633b;
+    width: 80%;
+    display: wrap;
+    /* margin: -5px; */
+} 
 
 i {
     margin-top: 10px;
@@ -256,7 +269,7 @@ h1 {
     background-color: transparent;
     display: grid;
     grid-template-columns: repeat(3, 69px);
-    grid-template-rows: repeat(3, 69px);
+    grid-template-rows: repeat(2, 69px);
 }
 
 .grid-item {
@@ -278,7 +291,7 @@ h1 {
     position: relative;
     display: block;
 }
-   
+
 #allChampionContainer {
     display: inline-flex;
     flex-wrap: wrap;
