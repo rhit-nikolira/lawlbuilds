@@ -306,7 +306,7 @@ rhit.buildManager = class {
 							if (!document.querySelector(`#grid-item-${itemContainerCounter}`).hasChildNodes()) {
 								console.log(`${itemContainerCounter} HAS NO CHILD`);
 								rhit.itemSet[itemContainerCounter] = item
-								const newInvItem = htmlToElement(`<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}"></img>`);
+								const newInvItem = htmlToElement(`<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}"></img>`);
 								newInvItem.onclick = (event) => {
 									rhit.itemSet[itemContainerCounter] = null;
 									rhit.updateChampStats();
