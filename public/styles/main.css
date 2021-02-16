@@ -7,15 +7,20 @@ body {
     /* background-image: url("https://wallpapercave.com/wp/wp3159847.jpg"); */
     background-image: url("http://lol-stats.net/uploads/X0geMjIXBEZOVO5U7CvrqJW3shfN1NaI57cmgyxZ.jpeg");
     text-align: center;
-    background-position: center;
     background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 #buildPage {
     /* background-image: url("https://pngimage.net/wp-content/uploads/2019/05/league-of-legends-jungle-map-png-1.png"); */
     /* background-image: url("https://lolstatic-a.akamaihd.net/frontpage/apps/prod/clash-2018/en_US/a46e742ae82f9d4f9db8e34ba57873e513e727b7/assets/static/img/backgrounds/redeemed-bg.jpg"); */
     /* background-image: url("https://lh3.googleusercontent.com/proxy/H7c4Rlyj_zhO8azC_IWmpiAIKycxcChc1ommaF5Uh87a1825rmQiHdReyhoEeh5bMZaNqID3uZMQOB-Ii8KAkMyHJQNhbkqhA4uCpRL9rbm0BxGenFHe9Ox3wKFvIuFqWWkeO5o5D27vYkAM1zsPkBZAbBFMxlh7I8-9S6r-_ZyR"); */
-    background-image: url("https://thumbs.gfycat.com/CompleteDecisiveKarakul-size_restricted.gif");
+    /* background-image: url("https://thumbs.gfycat.com/CompleteDecisiveKarakul-size_restricted.gif"); */
+    background-image: url("https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt7d22282a41a3a7a3/5fa99fc097f9f35d942e9bbb/Patch_10_23_Notes_Header_v2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 #loginPanel,
@@ -63,7 +68,7 @@ body {
     border-bottom: 1px solid #ecc572;
     border-color: #ecc572;
     transition: linear;
-    
+
 }
 
 .nav-tabs {
@@ -150,6 +155,7 @@ body {
     width: 2%;
     height: 80%;
     order: 7;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 #allItemsContainer {
@@ -157,7 +163,9 @@ body {
     flex-wrap: wrap;
     height: 80%;
     width: 71%;
+    /* width: 768px; */
     order: 8;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 #champContainer {
@@ -166,20 +174,22 @@ body {
     display: flex;
     flex-flow: column wrap;
     order: 9;
-}
-
-#champLvlContainer {
-    height: calc(100%/3);
-    width: 100%;
+    position: relative;
 }
 
 #champStatsContainer {
-    height: calc(100%/3);
+    height: 100%;
     width: 100%;
+    font-size: 20px;
+    color: whitesmoke;
+    background: rgba(0, 0, 0, 0.5);
 }
-#champStatsContainer>div {
-    color: white;
-}
+
+/* #champStatsContainer>div {
+    font-size: 20px;
+    color: whitesmoke;
+    background: rgba(0, 0, 0, 0.5);
+} */
 
 #champImgContainer {
     width: 80%;
@@ -195,7 +205,7 @@ body {
     width: 80%;
     display: wrap;
     /* margin: -5px; */
-} 
+}
 
 i {
     margin-top: 10px;
@@ -235,7 +245,7 @@ h1 {
 
 .itemIMGcontainer>div>.tooltiptext {
     visibility: hidden;
-    background-color: rgba(0,0,0,0.9);
+    background-color: rgba(0, 0, 0, 0.9);
     color: #7e633b;
     border-radius: 6px;
     padding: 5px 0;
@@ -281,7 +291,7 @@ h1 {
 
 .modal-header {
     width: 100%;
-    height:15vh;
+    height: 15vh;
     background-color: black;
     background-image: url("https://img.rankedboost.com/wp-content/uploads/2016/06/Season_2019_-_Default_Trim.png");
     background-position: center;

@@ -8,6 +8,7 @@ var rhit = rhit || {};
 let currentChampion = "";
 let champsFull = null;
 let itemContainerCounter = 1;
+rhit.level = 1;
 
 rhit.lawlController = class {
 	constructor() {
@@ -17,7 +18,7 @@ rhit.lawlController = class {
 
 rhit.lawlManager = class {
 	constructor() {
-		console.log("--Manager created--");
+		// console.log("--Manager created--");
 		this._document = [];
 		// this._ref =
 		this._unsubscribe = null;
@@ -33,12 +34,12 @@ rhit.champSet = class {
 rhit.updateChampStats = function () {
 	const champ = rhit.currentChampion;
 	const items = rhit.itemSet;
-	const level = 2
-	statgrowth = function (b,g,n) {
-		return b + g*(n-1)*(0.7025 + 0.01758*(n-1))
+	const level = rhit.level
+	statgrowth = function (b, g, n) {
+		return b + g * (n - 1) * (0.7025 + 0.01758 * (n - 1))
 	}
-	console.log(rhit.itemSet);
-	console.log(rhit.currentChampion);
+	// console.log(rhit.itemSet);
+	// console.log(rhit.currentChampion);
 
 	itemMoveSpeed = 0
 	itemMoveSpeedPercent = 1
@@ -74,12 +75,12 @@ rhit.updateChampStats = function () {
 	bonusCriticalDamage = 0
 	bonusAbilityPower = 0
 	bonusAttackRange = 0
-	
+
 	levelHealth = 0
 	levelHealthRegen = 0
 	levelArmor = 0
 	levelMagicResist = 0
-	levelMoveSpeed= 0
+	levelMoveSpeed = 0
 	levelMana = 0
 	levelManaRegen = 0
 	levelAttackDamage = 0
@@ -103,19 +104,19 @@ rhit.updateChampStats = function () {
 		bonusCriticalDamage += 0
 		bonusAbilityPower += 0
 		bonusAttackRange += 0
-		
+
 		levelHealth += statgrowth(champ.stats.hp, bonusHealth, level)
-		levelHealthRegen += statgrowth(champ.stats.hpregen, bonusHealthRegen,level)
-		levelArmor += statgrowth(champ.stats.armor, bonusArmor,level)
-		levelMagicResist += statgrowth(champ.stats.spellblock, bonusMagicResist,level)
-		levelMoveSpeed += statgrowth(champ.stats.movespeed, bonusMoveSpeed,level)
-		levelMana += statgrowth(champ.stats.mp, bonusMana,level)
-		levelManaRegen += statgrowth(champ.stats.mpregen, bonusManaRegen,level)
-		levelAttackDamage += statgrowth(champ.stats.attackdamage, bonusAttackDamage,level)
-		levelCriticalChance += statgrowth(champ.stats.crit, bonusCriticalChance,level)
-		levelCriticalDamage += statgrowth(1.75, bonusCriticalDamage,level)
-		levelAbilityPower += statgrowth(0, bonusAbilityPower,level)
-		levelAttackRange += statgrowth(champ.stats.attackrange, bonusAttackRange,level)
+		levelHealthRegen += statgrowth(champ.stats.hpregen, bonusHealthRegen, level)
+		levelArmor += statgrowth(champ.stats.armor, bonusArmor, level)
+		levelMagicResist += statgrowth(champ.stats.spellblock, bonusMagicResist, level)
+		levelMoveSpeed += statgrowth(champ.stats.movespeed, bonusMoveSpeed, level)
+		levelMana += statgrowth(champ.stats.mp, bonusMana, level)
+		levelManaRegen += statgrowth(champ.stats.mpregen, bonusManaRegen, level)
+		levelAttackDamage += statgrowth(champ.stats.attackdamage, bonusAttackDamage, level)
+		levelCriticalChance += statgrowth(champ.stats.crit, bonusCriticalChance, level)
+		levelCriticalDamage += statgrowth(1.75, bonusCriticalDamage, level)
+		levelAbilityPower += statgrowth(0, bonusAbilityPower, level)
+		levelAttackRange += statgrowth(champ.stats.attackrange, bonusAttackRange, level)
 
 		baseAttackSpeed += champ.stats.attackspeed
 	}
@@ -130,86 +131,119 @@ rhit.updateChampStats = function () {
 	//Items do not have a MPRegen Stat
 	//Lifesteal is only a percent while crit is flat?????? ?????? <- WTF IS THIS RIOT
 	//Items do not have Ability Haste
+	if (items) {
+		for (const item of items) {
+			if (item) {
 
-	for (const item of items) {
-		console.log(item);
-		if (item) {
-			itemMoveSpeed += item.stats.FlatMovementSpeedMod || 0;
-			itemMoveSpeedPercent += item.stats.PercentMovementSpeedMod || 0;
-			itemArmor += item.stats.FlatArmorMod || 0;
-			itemArmorPercent += item.stats.PercentMovementSpeedMod || 0;
-			itemHealth += item.stats.FlatHPPoolMod || 0;
-			itemHealthPercent += item.stats.PercentHPPoolMod || 0;
-			//itemHealthRegen += 
-			//itemHealthRegenPercent +=
-			itemMagicResist += item.stats.FlatSpellBlockMod || 0;
-			itemMagicResistPercent += item.stats.PercentSpellBlockMod || 0;
-			itemMana += item.stats.FlatMPPoolMod || 0;
-			itemManaPercent += item.stats.PercentMPPoolMod || 0;
-			itemAttackDamage += item.stats.FlatPhysicalDamageMod || 0;
-			itemAttackDamagePercent += item.stats.PercentPhysicalDamageMod || 0;
-			itemAbilityPower += item.stats.FlatMagicDamageMod || 0;
-			itemAbilityPowerPercent += item.stats.PercentMagicDamageMod || 0;
-			//itemManaRegen += 
-			//itemManaRegenPercent +=  
-			itemCriticalChance += item.stats.FlatCritChanceMod || 0;
-			itemLifesteal += item.stats.PercentLifeStealMod || 0;
-			//itemAbilityHaste += 
+				//test for console regex
+				// for (const key of rhit.itemKeys) {const item = rhit.itemsFull.data[key]; descriptionList = item.description.split("<br>"); for(const string of descriptionList) {re1 = /Mana Regen/; if (re1.test(string)) {console.log(string);}}}			
+
+				//set some constants
+				manaRegen1 = 0
+				healthRegen1 = 0
+				abilityHaste1 = 0
+				//read the item first
+				descriptionList = item.description.split("<br>")
+				for (const string of descriptionList) {
+					re2 = /passive|active|rarityMythic/
+					re1 = /Mana Regen/
+					if (re1.test(string) && !re2.test(string)) {
+						console.log(string);
+						manaRegen1 = string.match(/\d+/g) / 100;
+					}
+					re1 = /Health Regen/
+					if (re1.test(string) && !re2.test(string)) {
+						console.log(string);
+						healthRegen1 = string.match(/\d+/g) / 100;
+					}
+					re1 = /Ability Haste/
+					if (re1.test(string) && !re2.test(string)) {
+						console.log(string);
+						abilityHaste1 = string.match(/\d+/g)/1;
+					}
+
+				}
+				//then add the stats
+				itemMoveSpeed += item.stats.FlatMovementSpeedMod || 0;
+				itemMoveSpeedPercent += item.stats.PercentMovementSpeedMod || 0;
+				itemArmor += item.stats.FlatArmorMod || 0;
+				itemArmorPercent += item.stats.PercentMovementSpeedMod || 0;
+				itemHealth += item.stats.FlatHPPoolMod || 0;
+				itemHealthPercent += item.stats.PercentHPPoolMod || 0;
+				//itemHealthRegen += 
+				itemHealthRegenPercent += healthRegen1 || 0;
+				itemMagicResist += item.stats.FlatSpellBlockMod || 0;
+				itemMagicResistPercent += item.stats.PercentSpellBlockMod || 0;
+				itemMana += item.stats.FlatMPPoolMod || 0;
+				itemManaPercent += item.stats.PercentMPPoolMod || 0;
+				itemAttackDamage += item.stats.FlatPhysicalDamageMod || 0;
+				itemAttackDamagePercent += item.stats.PercentPhysicalDamageMod || 0;
+				itemAbilityPower += item.stats.FlatMagicDamageMod || 0;
+				itemAbilityPowerPercent += item.stats.PercentMagicDamageMod || 0;
+				//itemManaRegen += 
+				itemManaRegenPercent += manaRegen1 || 0
+				itemCriticalChance += item.stats.FlatCritChanceMod || 0;
+				itemLifesteal += item.stats.PercentLifeStealMod || 0;
+				itemAbilityHaste += abilityHaste1 || 0;
+			}
 		}
 	}
 
 	rhit.champ = new rhit.champSet();
 
 	rhit.champ.level = level;
-	rhit.champ.health = 			(levelHealth + itemHealth)*itemHealthPercent
-	rhit.champ.healthRegen = 		(levelHealthRegen + itemHealthRegen)*itemHealthRegenPercent
-	rhit.champ.armor = 				(levelArmor + itemArmor)*itemArmorPercent
-	rhit.champ.magicResist = 		(levelMagicResist + itemMagicResist)*itemMagicResistPercent
-	rhit.champ.moveSpeed = 			(levelMoveSpeed + itemMoveSpeed)*itemMoveSpeedPercent
-	
-	if(champ) {
-		if(champ.stats.mpregenperlevel == 0) {
+	rhit.champ.health = (levelHealth + itemHealth) * itemHealthPercent
+	rhit.champ.healthRegen = (levelHealthRegen + itemHealthRegen) * itemHealthRegenPercent
+	rhit.champ.armor = (levelArmor + itemArmor) * itemArmorPercent
+	rhit.champ.magicResist = (levelMagicResist + itemMagicResist) * itemMagicResistPercent
+	rhit.champ.moveSpeed = (levelMoveSpeed + itemMoveSpeed) * itemMoveSpeedPercent
+	rhit.champ.attackDamage = (levelAttackDamage + itemAttackDamage) * itemAttackDamagePercent
+	rhit.champ.criticalChance = (levelCriticalChance + itemCriticalChance) * itemMagicResistPercent
+	rhit.champ.criticalDamage = levelCriticalDamage
+	rhit.champ.abilityPower = (levelAbilityPower + itemAbilityPower) * itemAbilityPowerPercent
+	rhit.champ.attackRange = levelAttackRange
+	rhit.champ.lifeSteal = itemLifesteal
+	rhit.champ.abilityHaste = itemAbilityHaste
+
+	if (champ) {
+		if (champ.stats.mpregenperlevel == 0) {
 			if (champ.stats.mpregen == 0) {
-				rhit.champ.mana = 		"Manaless"
-				rhit.champ.manaRegen = 	"Manaless"
+				console.log("Manaless")
+				rhit.champ.mana = "Manaless"
+				rhit.champ.manaRegen = "Manaless"
 			} else {
-				rhit.champ.mana = 		levelMana
-				rhit.champ.manaRegen = 	levelManaRegen
+				console.log("Energy");
+				rhit.champ.mana = levelMana
+				rhit.champ.manaRegen = levelManaRegen
 			}
 		} else {
-			rhit.champ.mana = 			(levelMana+itemMana)*itemManaPercent
-			rhit.champ.manaRegen = 		(levelManaRegen+itemManaRegen)*itemManaRegenPercent
+			console.log("Mana'd");
+			rhit.champ.mana = (levelMana + itemMana) * itemManaPercent
+			rhit.champ.manaRegen = (levelManaRegen + itemManaRegen) * itemManaRegenPercent
 		}
 	} else {
-		rhit.champ.mana = 			(levelMana+itemMana)*itemManaPercent
-		rhit.champ.manaRegen = 		(levelManaRegen+itemManaRegen)*itemManaRegenPercent
+		console.log("No Champ");
+		rhit.champ.mana = (levelMana + itemMana) * itemManaPercent
+		rhit.champ.manaRegen = (levelManaRegen + itemManaRegen) * itemManaRegenPercent
 	}
-	rhit.champ.attackDamage = 		(levelAttackDamage+itemAttackDamage)*itemAttackDamagePercent
-	rhit.champ.criticalChance = 	(levelCriticalChance+itemCriticalChance)*itemMagicResistPercent
-	rhit.champ.criticalDamage = 	levelCriticalDamage
-	rhit.champ.abilityPower = 		(levelAbilityPower+itemAbilityPower)*itemAbilityPowerPercent
-	rhit.champ.attackRange = 		levelAttackRange
-	rhit.champ.lifeSteal = 			itemLifesteal	
-	rhit.champ.abilityHaste = 		itemAbilityHaste
-	
-	rhit.champ.attackSpeed = 		baseAttackSpeed
-	console.log(document.querySelector("#LV"));
-	document.querySelector("#LV").innerHTML=rhit.champ.level.toFixed(0);
-	document.querySelector("#AP").innerHTML=rhit.champ.abilityPower.toFixed(2);
-	document.querySelector("#AM").innerHTML=rhit.champ.armor.toFixed(2)
-	document.querySelector("#AD").innerHTML=rhit.champ.attackDamage.toFixed(2)
-	document.querySelector("#AR").innerHTML=rhit.champ.attackRange.toFixed(2)
-	document.querySelector("#AS").innerHTML=rhit.champ.attackSpeed.toFixed(2)
-	document.querySelector("#CC").innerHTML=rhit.champ.criticalChance.toFixed(2)
-	document.querySelector("#CD").innerHTML=rhit.champ.criticalDamage.toFixed(2)
-	document.querySelector("#HP").innerHTML=rhit.champ.health.toFixed(2)
-	document.querySelector("#HR").innerHTML=rhit.champ.healthRegen.toFixed(2)
-	document.querySelector("#VP").innerHTML=rhit.champ.lifeSteal.toFixed(2)
-	document.querySelector("#MM").innerHTML=rhit.champ.magicResist.toFixed(2)
-	document.querySelector("#MP").innerHTML=rhit.champ.mana.toFixed(2)
-	document.querySelector("#MR").innerHTML=rhit.champ.manaRegen.toFixed(2)
-	document.querySelector("#MS").innerHTML=rhit.champ.moveSpeed.toFixed(2)
-	document.querySelector("#AH").innerHTML=rhit.champ.abilityHaste.toFixed(2)
+
+	rhit.champ.attackSpeed = baseAttackSpeed
+	// document.querySelector("#LV").innerHTML = rhit.champ.level;
+	document.querySelector("#AP").innerHTML = rhit.champ.abilityPower.toFixed(2);
+	document.querySelector("#AM").innerHTML = rhit.champ.armor.toFixed(2)
+	document.querySelector("#AD").innerHTML = rhit.champ.attackDamage.toFixed(2)
+	document.querySelector("#AR").innerHTML = rhit.champ.attackRange.toFixed(2)
+	document.querySelector("#AS").innerHTML = rhit.champ.attackSpeed.toFixed(2)
+	document.querySelector("#CC").innerHTML = rhit.champ.criticalChance.toFixed(2)
+	document.querySelector("#CD").innerHTML = rhit.champ.criticalDamage.toFixed(2)
+	document.querySelector("#HP").innerHTML = rhit.champ.health.toFixed(2)
+	document.querySelector("#HR").innerHTML = rhit.champ.healthRegen.toFixed(2)
+	document.querySelector("#VP").innerHTML = rhit.champ.lifeSteal.toFixed(2)
+	document.querySelector("#MM").innerHTML = rhit.champ.magicResist.toFixed(2)
+	document.querySelector("#MP").innerHTML = rhit.champ.mana.toFixed(2)
+	document.querySelector("#MR").innerHTML = rhit.champ.manaRegen.toFixed(2)
+	document.querySelector("#MS").innerHTML = rhit.champ.moveSpeed.toFixed(2)
+	document.querySelector("#AH").innerHTML = rhit.champ.abilityHaste
 
 
 
@@ -229,7 +263,14 @@ rhit.buildManager = class {
 		document.querySelector("#selectButton").onclick = (event) => {
 			this.updateChamps();
 		};
+		document.querySelector("#levelDropdown").addEventListener("change", function () {
+			rhit.level = document.querySelector("#levelDropdown").value;
+			console.log(rhit.level);
+			rhit.updateChampStats();
+		});
+
 		this.updateItems();
+		rhit.updateChampStats();
 	}
 
 	updateChamps() {
@@ -241,7 +282,7 @@ rhit.buildManager = class {
 	}
 
 	getItems = function () {
-		console.log("setting up xml");
+		// console.log("setting up xml");
 		let endpoint = "http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/item.json";
 		let url = endpoint
 
@@ -253,7 +294,7 @@ rhit.buildManager = class {
 	}
 
 	getChamps = function () {
-		console.log("setting up xml");
+		// console.log("setting up xml");
 		// let endpoint = "http://jsonviewer.stack.hu/#http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion.json";
 		let endpoint = "http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion.json";
 		let url = endpoint
@@ -266,9 +307,9 @@ rhit.buildManager = class {
 	}
 
 	responseReceivedHandlerItems = function () {
-		console.log("Getting Response");
+		// console.log("Getting Response");
 		if (this.status === 200) {
-			console.log("GOT ITEMS");
+			// console.log("GOT ITEMS");
 			rhit.itemsFull = this.response;
 			rhit.itemKeys = [];
 			for (var obj in this.response.data) {
@@ -277,16 +318,17 @@ rhit.buildManager = class {
 
 			const newList = htmlToElement('');
 
-			console.log(rhit.itemsFull)
-			console.log(rhit.itemKeys)
+			// console.log(rhit.itemsFull)
+			// console.log(rhit.itemKeys)
 			for (const key of rhit.itemKeys) {
 				const item = rhit.itemsFull.data[key]
 				let re1 = /trinket/;
+				let re2 = /Elixir/
 				//Map 11: Summoners Rift
 				//Map 12: ARAM
 				//Map 21: TT
 				//Map 22: ???
-				if (!re1.test(item.colloq) && item.maps[11]) {
+				if (!re1.test(item.colloq) && item.maps[11] && !re2.test(item.name)) {
 					const newItemCard = htmlToElement(`
 					<div class = "itemIMGcontainer">
 						<div>
@@ -304,7 +346,7 @@ rhit.buildManager = class {
 					newItemCard.onclick = (event) => {
 						for (let itemContainerCounter = 1; itemContainerCounter < 7; itemContainerCounter++) {
 							if (!document.querySelector(`#grid-item-${itemContainerCounter}`).hasChildNodes()) {
-								console.log(`${itemContainerCounter} HAS NO CHILD`);
+								// console.log(`${itemContainerCounter} HAS NO CHILD`);
 								rhit.itemSet[itemContainerCounter] = item
 								const newInvItem = htmlToElement(`<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}"></img>`);
 								newInvItem.onclick = (event) => {
@@ -321,22 +363,14 @@ rhit.buildManager = class {
 					document.querySelector("#allItemsContainer").appendChild(newItemCard);
 				}
 			}
-			// 	const oldList = document.querySelector("#allItemsContainer");
-			// 	oldList.removeAttribute("id");
-			// 	oldList.hidden = true;
-			// 	// Put in the new quoteListContainer
-			// 	oldList.parentElement.insertBefore(newList, document.querySelector("#champContainer"));
-			// } else {
-			// 	rhit.itemsFull = null;
-			// }
 		}
 	}
 
 	responseReceivedHandlerChamps = function () {
 		if (rhit.champsFull == null) {
-			console.log("Getting Response");
+			// console.log("Getting Response");
 			if (this.status === 200) {
-				console.log("GOT Champs");
+				// console.log("GOT Champs");
 				rhit.champsFull = this.response;
 				rhit.champKeys = [];
 				for (var obj in this.response.data) {
@@ -345,8 +379,8 @@ rhit.buildManager = class {
 
 				const newList = htmlToElement('');
 
-				console.log(rhit.champsFull)
-				console.log(rhit.champKeys)
+				// console.log(rhit.champsFull)
+				// console.log(rhit.champKeys)
 				for (const key of rhit.champKeys) {
 					const champ = rhit.champsFull.data[key]
 					const newChampCard = htmlToElement(`
@@ -360,7 +394,7 @@ rhit.buildManager = class {
 						rhit.currentChampion = champ;
 						rhit.updateChampStats();
 						document.querySelector("#championImage").innerHTML = `<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}" style="width:58%;">`;
-						console.log("close modal");
+						// console.log("close modal");
 						setTimeout(() => {
 							$('#championModal').modal('hide');
 						}, 200);
@@ -373,10 +407,10 @@ rhit.buildManager = class {
 }
 
 rhit.main = function () {
-	console.log("Ready");
+	// console.log("Ready");
 
 	if (document.querySelector("#loginPage")) {
-		console.log("--Currently on Login page--");
+		// console.log("--Currently on Login page--");
 		new rhit.lawlController();
 		new rhit.lawlManager();
 

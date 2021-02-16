@@ -37,9 +37,10 @@
     <div id="selectContainer">
       <div id="champImgContainer">
         <div id="championImage">
-          <img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt629c00e7a21941b7/5f4d90ea891266279cd6d98b/league-client-update-header.jpg" alt="Choose a champ"
-           style="width:58%;">
-          </div>
+          <img
+            src="https://ddragon.leagueoflegends.com/cdn/11.3.1/img/profileicon/29.png"
+            alt="Choose a champ" style="width:58%;">
+        </div>
       </div>
       <div>
         <button id="selectButton" class="btn" data-toggle="modal" data-target="#championModal">Select a
@@ -52,14 +53,29 @@
 
     </div>
     <div id="champContainer">
-
-      <div id="champLvlContainer">
-        <div>LEVEL CONTAINER</div>
-        <div>19 columns by 5 rows</div>
-      </div>
       <div id="champStatsContainer">
-        <div>Base Statistics</div>
-        <div>Level= <span id="LV"></span></div>
+        <div> Level:
+          <select id="levelDropdown">
+            <option selected="selected" value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+          </select>
+        </div>
         <div>Ability Power= <span id="AP"></span></div>
         <div>Armor= <span id="AM"></span></div>
         <div>Attack Damage= <span id="AD"></span></div>
@@ -95,7 +111,9 @@
   <script src="scripts/jquery.min.js"></script>
   <script src="scripts/popper.js"></script>
   <script src="scripts/bootstrap-material-design.js"></script>
-  <script>$("body").bootstrapMaterialDesign();</script>
+  <script>
+    $("body").bootstrapMaterialDesign();
+  </script>
   <script src="/__/firebase/7.18.0/firebase-app.js"></script>
   <script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
   <script src="/__/firebase/7.18.0/firebase-auth.js"></script>
