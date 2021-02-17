@@ -159,7 +159,7 @@ rhit.updateChampStats = function () {
 					re1 = /Ability Haste/
 					if (re1.test(string) && !re2.test(string)) {
 						console.log(string);
-						abilityHaste1 = string.match(/\d+/g)/1;
+						abilityHaste1 = string.match(/\d+/g) / 1;
 					}
 
 				}
@@ -348,7 +348,19 @@ rhit.buildManager = class {
 							if (!document.querySelector(`#grid-item-${itemContainerCounter}`).hasChildNodes()) {
 								// console.log(`${itemContainerCounter} HAS NO CHILD`);
 								rhit.itemSet[itemContainerCounter] = item
-								const newInvItem = htmlToElement(`<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}"></img>`);
+								const newInvItem = htmlToElement(`
+								<div class = "itemIMGcontainer">
+									<div>
+										<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}">
+										<div class="tooltiptext">
+											<div class="itemname">${item.name}</div>
+											<div class="itemplaintext">${item.plaintext}</div>
+											&nbsp
+											<div class="itemdescription">${item.description}</div>
+										</div>
+									</div>
+								</div>
+								`);
 								newInvItem.onclick = (event) => {
 									rhit.itemSet[itemContainerCounter] = null;
 									rhit.updateChampStats();
