@@ -21,6 +21,8 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    /* background-image: url("https://lolstatic-a.akamaihd.net/frontpage/apps/prod/clash-2018/en_US/a46e742ae82f9d4f9db8e34ba57873e513e727b7/assets/static/img/backgrounds/redeemed-bg.jpg"); */
+    /* background-image: url("https://thumbs.gfycat.com/CompleteDecisiveKarakul-size_restricted.gif"); */
 }
 
 #loginPanel,
@@ -287,6 +289,8 @@ h1 {
 
 .grid-item {
     border: thin solid #7e633b;
+    /* width: 59px;
+    height: 59px; */
 }
 
 .modal-header {
