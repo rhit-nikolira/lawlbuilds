@@ -316,3 +316,13 @@ h1 {
 .card {
     margin: 10px 0;
 }
+
+.card-body {
+    display: grid;
+    grid-template-columns: repeat(3, 69px);
+    grid-template-rows: repeat(2, 69px);
+}
+
+.card img {
+
+}

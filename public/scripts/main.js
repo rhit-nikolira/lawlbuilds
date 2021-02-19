@@ -21,17 +21,46 @@ rhit.displayName = null;
 rhit.itemSet = rhit.itemSet || [null, null, null, null, null, null, null];
 rhit.currentChampion = rhit.currentChampion || null;
 
+myStorage = window.sessionStorage;
+
 rhit.ItemSetManager = class {
 	constructor() {
 		rhit.fblawlManager.beginListening(this.updateList.bind(this));
 	}
 	_createCard(savedData) {
-		return htmlToElement(`<div class="card">
-		<div class="card-body">
-		<h5 class="card-title">${savedData.itemArray}</h5>
-		<h6 class="card-subtitle mb-2 text-muted">${savedData.champion}</h6>
+		console.log(savedData)
+		const html = `
+		<div class="card">
+			<div class="card-body">
+				<div>
+					<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[1].image.full}" alt="${savedData.itemArray[1].name}">
+				</div>
+				<div>
+					<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[2].image.full}" alt="${savedData.itemArray[1].name}">
+				</div>
+				<div>
+					<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[3].image.full}" alt="${savedData.itemArray[1].name}">
+				</div>
+				<div>
+					<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[4].image.full}" alt="${savedData.itemArray[1].name}">
+				</div>
+				<div>
+					<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[5].image.full}" alt="${savedData.itemArray[1].name}">
+				</div>
+				<div>
+					<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[6].image.full}" alt="${savedData.itemArray[1].name}">
+				</div>
+				<div>
+				<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${savedData.champion.image.full}" alt="${savedData.champion.name}" style="width:58%;">
+				</div>
+				<h6 class="card-subtitle mb-2 text-muted">${savedData.champion.name}</h6>
+				</div>
 		</div>
-		</div>`);
+		`;
+
+
+
+		return htmlToElement(html);
 	}
 
 	updateList() {
@@ -40,6 +69,10 @@ rhit.ItemSetManager = class {
 			const savedData = rhit.fblawlManager.getDataAtIndex(i);
 			const newCard = this._createCard(savedData);
 			newCard.onclick = (event) => {
+				rhit.itemSet = savedData.itemArray;
+				rhit.currentChampion = savedData.champion;
+				myStorage.setItem("itemSet", JSON.stringify(savedData.itemArray));
+				myStorage.setItem("champ", JSON.stringify(savedData.champion));
 				window.location.href = `/build.html`;
 			};
 			newList.appendChild(newCard);
@@ -61,11 +94,11 @@ rhit.lawlManager = class {
 
 	add(itemArray, champion) {
 		this._ref.add({
-			[rhit.FB_KEY_AUTHOR]: this._uid,
-			[rhit.FB_KEY_ITEMSET]: itemArray,
-			[rhit.FB_KEY_CHAMPION]: champion,
-			[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
-		})
+				[rhit.FB_KEY_AUTHOR]: this._uid,
+				[rhit.FB_KEY_ITEMSET]: itemArray,
+				[rhit.FB_KEY_CHAMPION]: champion,
+				[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
+			})
 			.then(function (docRef) {
 				console.log("Document written with ID: ", docRef.id);
 			})
@@ -76,16 +109,16 @@ rhit.lawlManager = class {
 
 	beginListening(changeListener) {
 		this._unsubscribe = this._ref
-		.orderBy(rhit.FB_KEY_LAST_TOUCHED, "desc")
-		.limit(50)
-		.onSnapshot((querySnapshot) => {
-			console.log("MovieQuote update!");
-			this._documentSnapshots = querySnapshot.docs;
-			// querySnapshot.forEach((doc) => {
-			//  console.log(doc.data());
-			// });
-			changeListener();
-		});
+			.orderBy(rhit.FB_KEY_LAST_TOUCHED, "desc")
+			.limit(50)
+			.onSnapshot((querySnapshot) => {
+				console.log("MovieQuote update!");
+				this._documentSnapshots = querySnapshot.docs;
+				// querySnapshot.forEach((doc) => {
+				//  console.log(doc.data());
+				// });
+				changeListener();
+			});
 	}
 
 	stopListening() {
@@ -108,7 +141,8 @@ rhit.lawlManager = class {
 }
 
 rhit.savedData = class {
-	constructor(author, itemArray, champion) {
+	constructor(id, author, champion, itemArray) {
+		this.id = id;
 		this.author = author;
 		this.itemArray = itemArray;
 		this.champion = champion;
@@ -238,17 +272,14 @@ rhit.updateChampStats = function () {
 					re2 = /passive|active|rarityMythic/
 					re1 = /Mana Regen/
 					if (re1.test(string) && !re2.test(string)) {
-						console.log(string);
 						manaRegen1 = string.match(/\d+/g) / 100;
 					}
 					re1 = /Health Regen/
 					if (re1.test(string) && !re2.test(string)) {
-						console.log(string);
 						healthRegen1 = string.match(/\d+/g) / 100;
 					}
 					re1 = /Ability Haste/
 					if (re1.test(string) && !re2.test(string)) {
-						console.log(string);
 						abilityHaste1 = string.match(/\d+/g) / 1;
 					}
 
@@ -339,7 +370,7 @@ rhit.updateChampStats = function () {
 
 
 
-	console.log(rhit.champ);
+	// console.log(rhit.champ);
 }
 
 rhit.buildManager = class {
@@ -360,8 +391,47 @@ rhit.buildManager = class {
 			rhit.fblawlManager.add(rhit.itemSet, rhit.currentChampion);
 		};
 		document.querySelector("#itemSetButton").onclick = (event) => {
-			window.location.href = `itemSets.html`;			
+			window.location.href = `itemSets.html`;
 		};
+
+		if (JSON.parse(myStorage.getItem("itemSet"))) {
+			rhit.itemSet = JSON.parse(myStorage.getItem("itemSet"));
+			for (let itemContainerCounter = 1; itemContainerCounter < 7; itemContainerCounter++) {
+				if (rhit.itemSet[itemContainerCounter]) {
+					if (!document.querySelector(`#grid-item-${itemContainerCounter}`).hasChildNodes()) {
+						// console.log(`${itemContainerCounter} HAS NO CHILD`);
+						const item = rhit.itemSet[itemContainerCounter]
+						const newInvItem = htmlToElement(`
+								<div class = "itemIMGcontainer">
+									<div>
+										<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}">
+										<div class="tooltiptext">
+											<div class="itemname">${item.name}</div>
+											<div class="itemplaintext">${item.plaintext}</div>
+											&nbsp
+											<div class="itemdescription">${item.description}</div>
+										</div>
+									</div>
+								</div>
+								`);
+						newInvItem.onclick = (event) => {
+							rhit.itemSet[itemContainerCounter] = null;
+							rhit.updateChampStats();
+							document.querySelector(`#grid-item-${itemContainerCounter}`).innerHTML = ``;
+						}
+						document.querySelector(`#grid-item-${itemContainerCounter}`).appendChild(newInvItem);
+					}
+
+
+				}
+			}
+		}
+
+		if (JSON.parse(myStorage.getItem("champ"))) {
+			rhit.currentChampion = JSON.parse(myStorage.getItem("champ"));
+			console.log("This is the champ!", rhit.currentChampion);
+			document.querySelector("#championImage").innerHTML = `<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${rhit.currentChampion.image.full}" alt="${rhit.currentChampion.name}" style="width:58%;">`;
+		}
 
 		this.updateItems();
 		rhit.updateChampStats();
@@ -589,7 +659,7 @@ rhit.main = function () {
 		rhit.fblawlManager = new rhit.lawlManager(rhit.displayName);
 	}
 
-	if(document.querySelector("#itemSetPage")){
+	if (document.querySelector("#itemSetPage")) {
 		console.log("--Currently on Item Set Page--");
 		rhit.fblawlManager = new rhit.lawlManager(rhit.displayName);
 		rhit.fbItemSetManager = new rhit.ItemSetManager();
