@@ -112,7 +112,8 @@
 }
 
 #homeButton,
-#backButton,
+#saveButton,
+#itemSetButton,
 #selectButton {
     position: absolute;
     bottom: 0;
@@ -310,4 +311,8 @@ h1 {
     width: 100%;
     background-color: black;
     text-align: center;
+}
+
+.card {
+    margin: 10px 0;
 }

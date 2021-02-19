@@ -5,23 +5,113 @@
  */
 
 var rhit = rhit || {};
+
 let currentChampion = "";
 let champsFull = null;
 let itemContainerCounter = 1;
 rhit.level = 1;
 
-rhit.lawlController = class {
-	constructor() {
+rhit.FB_COLLECTION_ITEMSETS = "ItemSet";
+rhit.FB_KEY_AUTHOR = "author";
+rhit.FB_KEY_CHAMPION = "champion";
+rhit.FB_KEY_ITEMSET = "itemSet";
+rhit.FB_KEY_LAST_TOUCHED = "lastTouched";
+rhit.fblawlManager = null;
+rhit.displayName = null;
+rhit.itemSet = rhit.itemSet || [null, null, null, null, null, null, null];
+rhit.currentChampion = rhit.currentChampion || null;
 
+rhit.ItemSetManager = class {
+	constructor() {
+		rhit.fblawlManager.beginListening(this.updateList.bind(this));
+	}
+	_createCard(savedData) {
+		return htmlToElement(`<div class="card">
+		<div class="card-body">
+		<h5 class="card-title">${savedData.itemArray}</h5>
+		<h6 class="card-subtitle mb-2 text-muted">${savedData.champion}</h6>
+		</div>
+		</div>`);
+	}
+
+	updateList() {
+		const newList = htmlToElement('<div id="cardContainer"></div>');
+		for (let i = 0; i < rhit.fblawlManager.length; i++) {
+			const savedData = rhit.fblawlManager.getDataAtIndex(i);
+			const newCard = this._createCard(savedData);
+			newCard.onclick = (event) => {
+				window.location.href = `/build.html`;
+			};
+			newList.appendChild(newCard);
+		}
+		const oldList = document.querySelector("#cardContainer");
+		oldList.hidden = true;
+		oldList.parentElement.appendChild(newList);
 	}
 }
 
 rhit.lawlManager = class {
-	constructor() {
-		// console.log("--Manager created--");
+	constructor(uid) {
+		console.log("--Manager created--");
+		this._uid = uid;
 		this._document = [];
-		// this._ref =
+		this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_ITEMSETS);
 		this._unsubscribe = null;
+	}
+
+	add(itemArray, champion) {
+		this._ref.add({
+			[rhit.FB_KEY_AUTHOR]: this._uid,
+			[rhit.FB_KEY_ITEMSET]: itemArray,
+			[rhit.FB_KEY_CHAMPION]: champion,
+			[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
+		})
+			.then(function (docRef) {
+				console.log("Document written with ID: ", docRef.id);
+			})
+			.catch(function (error) {
+				console.error("Error adding document: ", error);
+			});
+	}
+
+	beginListening(changeListener) {
+		this._unsubscribe = this._ref
+		.orderBy(rhit.FB_KEY_LAST_TOUCHED, "desc")
+		.limit(50)
+		.onSnapshot((querySnapshot) => {
+			console.log("MovieQuote update!");
+			this._documentSnapshots = querySnapshot.docs;
+			// querySnapshot.forEach((doc) => {
+			//  console.log(doc.data());
+			// });
+			changeListener();
+		});
+	}
+
+	stopListening() {
+		this._unsubscribe();
+	}
+
+	get length() {
+		return this._documentSnapshots.length;
+	}
+
+	getDataAtIndex(index) {
+		const docSnapshot = this._documentSnapshots[index];
+		const card = new rhit.savedData(
+			docSnapshot.id,
+			docSnapshot.get(rhit.FB_KEY_AUTHOR),
+			docSnapshot.get(rhit.FB_KEY_CHAMPION),
+			docSnapshot.get(rhit.FB_KEY_ITEMSET));
+		return card;
+	}
+}
+
+rhit.savedData = class {
+	constructor(author, itemArray, champion) {
+		this.author = author;
+		this.itemArray = itemArray;
+		this.champion = champion;
 	}
 }
 
@@ -257,9 +347,6 @@ rhit.buildManager = class {
 		document.querySelector("#homeButton").onclick = (event) => {
 			window.location.href = '/';
 		};
-		document.querySelector("#backButton").onclick = (event) => {
-			window.location.href = '/';
-		};
 		document.querySelector("#selectButton").onclick = (event) => {
 			this.updateChamps();
 		};
@@ -268,6 +355,13 @@ rhit.buildManager = class {
 			console.log(rhit.level);
 			rhit.updateChampStats();
 		});
+
+		document.querySelector("#saveButton").onclick = (event) => {
+			rhit.fblawlManager.add(rhit.itemSet, rhit.currentChampion);
+		};
+		document.querySelector("#itemSetButton").onclick = (event) => {
+			window.location.href = `itemSets.html`;			
+		};
 
 		this.updateItems();
 		rhit.updateChampStats();
@@ -342,7 +436,6 @@ rhit.buildManager = class {
 						</div>
 					</div>
 					`);
-					rhit.itemSet = []
 					newItemCard.onclick = (event) => {
 						for (let itemContainerCounter = 1; itemContainerCounter < 7; itemContainerCounter++) {
 							if (!document.querySelector(`#grid-item-${itemContainerCounter}`).hasChildNodes()) {
@@ -419,12 +512,9 @@ rhit.buildManager = class {
 }
 
 rhit.main = function () {
-	// console.log("Ready");
-
 	if (document.querySelector("#loginPage")) {
 		// console.log("--Currently on Login page--");
-		new rhit.lawlController();
-		new rhit.lawlManager();
+		// new rhit.lawlController();
 
 		//SIGN OUT
 		document.querySelector("#signOutButton").onclick = (event) => {
@@ -496,6 +586,13 @@ rhit.main = function () {
 	if (document.querySelector("#buildPage")) {
 		console.log("--Currently on Build page--");
 		new rhit.buildManager();
+		rhit.fblawlManager = new rhit.lawlManager(rhit.displayName);
+	}
+
+	if(document.querySelector("#itemSetPage")){
+		console.log("--Currently on Item Set Page--");
+		rhit.fblawlManager = new rhit.lawlManager(rhit.displayName);
+		rhit.fbItemSetManager = new rhit.ItemSetManager();
 	}
 
 	firebase.auth().onAuthStateChanged((user) => {
@@ -504,6 +601,7 @@ rhit.main = function () {
 			const email = user.email;
 			const isAnonymous = user.isAnonymous;
 			const uid = user.uid;
+			rhit.displayName = uid;
 
 			console.log("The user is signed in ", uid);
 			console.log('displayName :>> ', displayName);
