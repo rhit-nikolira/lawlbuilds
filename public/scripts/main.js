@@ -585,7 +585,7 @@ rhit.buildManager = class {
 					newChampCard.onclick = (event) => {
 						rhit.currentChampion = champ;
 						rhit.updateChampStats();
-						document.querySelector("#selectButton").innerHTML = `<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}" style="width:58%;">`;
+						document.querySelector("#selectButton").innerHTML = `<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}" style="width:80%;">`;
 						// console.log("close modal");
 						setTimeout(() => {
 							$('#championModal').modal('hide');
