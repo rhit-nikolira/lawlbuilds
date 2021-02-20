@@ -25,6 +25,15 @@ myStorage = window.sessionStorage;
 
 rhit.ItemSetManager = class {
 	constructor() {
+		if(document.querySelector("#buildButton").onclick = (event) => {
+			window.location.href = `/build.html`;
+		});
+		if(document.querySelector("#allItemSets").onclick = (event) => {
+			window.location.href = `/itemSets.html`;
+		});
+		if(document.querySelector("#myItemSets").onclick = (event) => {
+			window.location.href = `/itemSets.html?uid=${rhit.displayName}`;
+		});
 		rhit.fblawlManager.beginListening(this.updateList.bind(this));
 	}
 	_createCard(savedData) {
@@ -53,7 +62,7 @@ rhit.ItemSetManager = class {
 				<div>
 				<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${savedData.champion.image.full}" alt="${savedData.champion.name}" style="width:58%;">
 				</div>
-				<h6 class="card-subtitle mb-2 text-muted">${savedData.champion.name}</h6>
+				<h5 class="card-subtitle mb-2 text-muted">${savedData.champion.name}</h6>
 				</div>
 		</div>
 		`;
@@ -85,7 +94,6 @@ rhit.ItemSetManager = class {
 
 rhit.lawlManager = class {
 	constructor(uid) {
-		console.log("--Manager created--");
 		this._uid = uid;
 		this._document = [];
 		this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_ITEMSETS);
@@ -108,17 +116,26 @@ rhit.lawlManager = class {
 	}
 
 	beginListening(changeListener) {
-		this._unsubscribe = this._ref
-			.orderBy(rhit.FB_KEY_LAST_TOUCHED, "desc")
-			.limit(50)
-			.onSnapshot((querySnapshot) => {
+		let query = this._ref.orderBy(rhit.FB_KEY_LAST_TOUCHED, "desc").limit(50);
+		if(this._uid) {
+			query = query.where(rhit.FB_KEY_AUTHOR, "==", this._uid);
+		}
+		this._unsubscribe = query.onSnapshot((querySnapshot) => {
 				console.log("MovieQuote update!");
 				this._documentSnapshots = querySnapshot.docs;
-				// querySnapshot.forEach((doc) => {
-				//  console.log(doc.data());
-				// });
 				changeListener();
 			});
+		// this._unsubscribe = this._ref
+		// 	.orderBy(rhit.FB_KEY_LAST_TOUCHED, "desc")
+		// 	.limit(50)
+		// 	.onSnapshot((querySnapshot) => {
+		// 		console.log("MovieQuote update!");
+		// 		this._documentSnapshots = querySnapshot.docs;
+		// 		// querySnapshot.forEach((doc) => {
+		// 		//  console.log(doc.data());
+		// 		// });
+		// 		changeListener();
+		// 	});
 	}
 
 	stopListening() {
@@ -661,7 +678,11 @@ rhit.main = function () {
 
 	if (document.querySelector("#itemSetPage")) {
 		console.log("--Currently on Item Set Page--");
-		rhit.fblawlManager = new rhit.lawlManager(rhit.displayName);
+		const urlParams = new URLSearchParams(window.location.search);
+		const uid = urlParams.get("uid");
+		console.log(uid);
+
+		rhit.fblawlManager = new rhit.lawlManager(uid);
 		rhit.fbItemSetManager = new rhit.ItemSetManager();
 	}
 

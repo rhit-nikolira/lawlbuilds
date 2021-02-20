@@ -10,26 +10,44 @@
   <title>Lawl Builds- itemSets</title>
 </head>
 
-<body id="itemSetPage" style="background-color: black;">
+<body id="itemSetPage">
   <div class="container page-container">
     <div id="title">
-    <h1 class="mx-auto">item sets</h1>
-    </div>
+      <h1 class="mx-auto" style="color: black;">item sets</h1>
+      <div class="bmd-layout-container bmd-drawer-f-l">
+        <header class="bmd-layout-header">
+          <div class="navbar navbar-light bg-faded">
+            <button class="navbar-toggler" style="background-color: white;" type="button" data-toggle="drawer" data-target="#dw-s1">
+              <span class="sr-only">Toggle drawer</span>
+              <i class="material-icons">menu</i>
+            </button>
+            <ul class="nav navbar-nav">
+            </ul>
+          </div>
+        </header>
+        <div id="dw-s1" class="bmd-layout-drawer bg-faded" style="height: 100px;">
+          <ul class="list-group">
+            <a id="allItemSets" class="list-group-item">All Item Sets</a>
+            <a id="myItemSets" class="list-group-item">My Item Sets</a>
+          </ul>
+        </div>
+      </div>
+      <button id="buildButton" class="btn" style="background-color: white;">BACK</button>
 
     <div id="cardContainer">
-      
+
     </div>
 
-  <script src="scripts/jquery.min.js"></script>
-  <script src="scripts/popper.js"></script>
-  <script src="scripts/bootstrap-material-design.js"></script>
-  <script>$("body").bootstrapMaterialDesign();</script>
-  <script src="/__/firebase/7.18.0/firebase-app.js"></script>
-  <script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
-  <script src="/__/firebase/7.18.0/firebase-auth.js"></script>
-  <script src="/__/firebase/7.18.0/firebase-firestore.js"></script>
-  <script src="/__/firebase/init.js"></script>
-  <script src="scripts/main.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/popper.js"></script>
+    <script src="scripts/bootstrap-material-design.js"></script>
+    <script>$("body").bootstrapMaterialDesign();</script>
+    <script src="/__/firebase/7.18.0/firebase-app.js"></script>
+    <script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
+    <script src="/__/firebase/7.18.0/firebase-auth.js"></script>
+    <script src="/__/firebase/7.18.0/firebase-firestore.js"></script>
+    <script src="/__/firebase/init.js"></script>
+    <script src="scripts/main.js"></script>
 </body>
 
 </html>
