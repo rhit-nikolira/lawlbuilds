@@ -14,7 +14,16 @@
   <div class="container page-container">
     <div id="title">
       <h1 class="mx-auto" style="color: black;">item sets</h1>
-      <div class="bmd-layout-container bmd-drawer-f-l">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: black;">
+          Dropdown
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <button id="allItemSets" class="dropdown-item" type="button">All Item Sets</button>
+          <button id="myItemSets" class="dropdown-item" type="button">My Item Sets</button>
+        </div>
+      </div>
+      <!-- <div class="bmd-layout-container bmd-drawer-f-l">
         <header class="bmd-layout-header">
           <div class="navbar navbar-light bg-faded">
             <button class="navbar-toggler" style="background-color: white;" type="button" data-toggle="drawer" data-target="#dw-s1">
@@ -25,14 +34,14 @@
             </ul>
           </div>
         </header>
-        <div id="dw-s1" class="bmd-layout-drawer bg-faded" style="height: 100px;">
+        <div id="dw-s1" class="bmd-layout-drawer bg-faded">
           <ul class="list-group">
-            <a id="allItemSets" class="list-group-item">All Item Sets</a>
-            <a id="myItemSets" class="list-group-item">My Item Sets</a>
+            <li id="allItemSets" class="list-group-item">All Item Sets</li>
+            <li id="myItemSets" class="list-group-item">My Item Sets</li>
           </ul>
         </div>
-      </div>
-      <button id="buildButton" class="btn" style="background-color: white;">BACK</button>
+      </div> -->
+      <button id="buildButton" class="btn">BACK</button>
 
     <div id="cardContainer">
 

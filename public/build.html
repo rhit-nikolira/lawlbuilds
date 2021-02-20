@@ -25,7 +25,9 @@
       <div>
         <button id="homeButton" class="btn">Home</button>
         <button id="saveButton" class="btn">Save</button>
-        <button id="itemSetButton" class="btn" data-toggle="modal" data-target="itemSetModal">Search Item Sets</button>
+        <div>
+          <button id="itemSetButton" class="btn" data-toggle="modal" data-target="itemSetModal">Search Item Sets</button>
+        </div>
       </div>
     </div>
     <div id="itemSetContainer">
@@ -33,15 +35,12 @@
     <div id="borderContainer-2"></div>
     <div id="selectContainer">
       <div id="champImgContainer">
-        <div id="championImage">
-          <img
-            src="https://ddragon.leagueoflegends.com/cdn/11.3.1/img/profileicon/29.png"
-            alt="Choose a champ" style="width:58%;">
+        <div id="selectButton" data-toggle="modal" data-target="#championModal">
+          <img src="https://ddragon.leagueoflegends.com/cdn/11.3.1/img/profileicon/29.png" alt="Choose a champ" style="width:58%;">
         </div>
       </div>
       <div>
-        <button id="selectButton" class="btn" data-toggle="modal" data-target="#championModal">Select a
-          champion</button>
+        <!-- <button class="btn" data-toggle="modal" data-target="#championModal">Select a champion</button> -->
       </div>
     </div>
     <div id="borderContainer-3"></div>

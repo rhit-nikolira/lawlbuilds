@@ -449,7 +449,7 @@ rhit.buildManager = class {
 			console.log("This is the champ!", rhit.currentChampion);
 			document.querySelector("#championImage").innerHTML = `<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${rhit.currentChampion.image.full}" alt="${rhit.currentChampion.name}" style="width:58%;">`;
 		}
-
+		myStorage.clear();
 		this.updateItems();
 		rhit.updateChampStats();
 	}
@@ -585,7 +585,7 @@ rhit.buildManager = class {
 					newChampCard.onclick = (event) => {
 						rhit.currentChampion = champ;
 						rhit.updateChampStats();
-						document.querySelector("#championImage").innerHTML = `<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}" style="width:58%;">`;
+						document.querySelector("#selectButton").innerHTML = `<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}" style="width:58%;">`;
 						// console.log("close modal");
 						setTimeout(() => {
 							$('#championModal').modal('hide');

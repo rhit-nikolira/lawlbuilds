@@ -101,8 +101,7 @@
 
 #homeButton,
 #saveButton,
-#itemSetButton,
-#selectButton {
+#itemSetButton {
     letter-spacing: 1px;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.7);
