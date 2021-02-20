@@ -87,12 +87,11 @@
 }
 
 #itemsContainer {
-    height: 25%;
+    /* height: 25%; */
     width: 80%;
     order: 3;
     position: relative;
     text-align: center;
-
 }
 
 #title {
@@ -320,3 +319,52 @@ h1 {
 #menuEdit, #menuDelete{
     display: none;
 }
+
+
+@media only screen and (max-width: 600px) {
+    #allItemsContainer {
+        display: inline-flex;
+        flex-wrap: wrap;
+        height: 75%;
+        width: 100%;
+        /* width: 768px; */
+        order: 9;
+        background: rgba(0, 0, 0, 0.5);
+    }
+    #champContainer {
+        height: 75%;
+        width: 100%;
+        display: flex;
+        flex-flow: column wrap;
+        order: 8;
+        position: relative;
+    }
+    #borderContainer-3 {
+        width: 1%;
+        height: 25%;
+        order: 7;
+        background: rgba(0, 0, 0, 0.0);
+    }
+    #borderContainer-2 {
+        width: 0%;
+        height: 0%;
+        order: 7;
+        background: rgba(0, 0, 0, 0.5);
+    }
+    #itemsContainer {
+        position: fixed;
+        z-index: 999;
+        order: 5;
+
+    }
+
+    #selectContainer {
+        position: fixed;
+        z-index: 999;
+        height: 25%;
+        width: 20%;
+        order: 6;
+        top:0px;
+        right:0px;
+    }
+  }
