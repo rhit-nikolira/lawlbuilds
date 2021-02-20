@@ -531,7 +531,7 @@ rhit.buildManager = class {
 								const newInvItem = htmlToElement(`
 								<div class = "itemIMGcontainer">
 									<div>
-										<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}">
+										<img class="itemIMG-2" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}">
 										<div class="tooltiptext">
 											<div class="itemname">${item.name}</div>
 											<div class="itemplaintext">${item.plaintext}</div>
@@ -585,7 +585,7 @@ rhit.buildManager = class {
 					newChampCard.onclick = (event) => {
 						rhit.currentChampion = champ;
 						rhit.updateChampStats();
-						document.querySelector("#selectButton").innerHTML = `<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}" style="width:80%;">`;
+						document.querySelector("#selectButton").innerHTML = `<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}" style="width:60%;">`;
 						// console.log("close modal");
 						setTimeout(() => {
 							$('#championModal').modal('hide');
