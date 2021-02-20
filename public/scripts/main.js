@@ -26,14 +26,14 @@ myStorage = window.sessionStorage;
 rhit.ItemSetManager = class {
 	constructor() {
 		if (document.querySelector("#buildButton").onclick = (event) => {
-				window.location.href = `/build.html`;
-			});
+			window.location.href = `/build.html`;
+		});
 		if (document.querySelector("#allItemSets").onclick = (event) => {
-				window.location.href = `/itemSets.html`;
-			});
+			window.location.href = `/itemSets.html`;
+		});
 		if (document.querySelector("#myItemSets").onclick = (event) => {
-				window.location.href = `/itemSets.html?uid=${rhit.displayName}`;
-			});
+			window.location.href = `/itemSets.html?uid=${rhit.displayName}`;
+		});
 		rhit.fblawlManager.beginListening(this.updateList.bind(this));
 	}
 	_createCard(savedData) {
@@ -52,35 +52,35 @@ rhit.ItemSetManager = class {
 			html2 = `<div>
 						<img class="itemIMG" src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[1].image.full}" alt="${savedData.itemArray[1].name}">
 					</div>`
-		}else {
+		} else {
 			html2 = `<div></div>`
 		}
 		if (savedData.itemArray[2]) {
 			html3 = `<div>
 						<img class="itemIMG" src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[2].image.full}" alt="${savedData.itemArray[2].name}">
 					</div>`
-		}else {
+		} else {
 			html3 = `<div></div>`
 		}
 		if (savedData.itemArray[3]) {
 			html4 = `<div>
 						<img class="itemIMG" src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[3].image.full}" alt="${savedData.itemArray[3].name}">
 					</div>`
-		}else {
+		} else {
 			html4 = `<div></div>`
 		}
 		if (savedData.itemArray[4]) {
 			html5 = `<div>
 						<img class="itemIMG" src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[4].image.full}" alt="${savedData.itemArray[4].name}">
 					</div>`
-		}else {
+		} else {
 			html5 = `<div></div>`
 		}
 		if (savedData.itemArray[5]) {
 			html6 = `<div>
 						<img class="itemIMG" src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[5].image.full}" alt="${savedData.itemArray[5].name}">
 					</div>`
-		}else {
+		} else {
 			html6 = `<div></div>`
 		}
 		if (savedData.itemArray[6]) {
@@ -91,12 +91,12 @@ rhit.ItemSetManager = class {
 			html7 = `<div></div>`
 		}
 		if (savedData.champion) {
-		html8 = `	<div>
+			html8 = `	<div>
 						<img src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${savedData.champion.image.full}" alt="${savedData.champion.name}" style="width:58%;">
 						</div>
 						<h5 class="card-subtitle mb-2 text-muted">${savedData.champion.name}</h5>`
 		} else {
-		html8 = `<div></div>`
+			html8 = `<div></div>`
 		}
 		const html9 = `
 			</div>
@@ -137,11 +137,11 @@ rhit.lawlManager = class {
 
 	add(itemArray, champion) {
 		this._ref.add({
-				[rhit.FB_KEY_AUTHOR]: rhit.displayName,
-				[rhit.FB_KEY_ITEMSET]: itemArray,
-				[rhit.FB_KEY_CHAMPION]: champion,
-				[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
-			})
+			[rhit.FB_KEY_AUTHOR]: rhit.displayName,
+			[rhit.FB_KEY_ITEMSET]: itemArray,
+			[rhit.FB_KEY_CHAMPION]: champion,
+			[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
+		})
 			.then(function (docRef) {
 				console.log("Document written with ID: ", docRef.id);
 			})
@@ -490,7 +490,7 @@ rhit.buildManager = class {
 			rhit.currentChampion = JSON.parse(myStorage.getItem("champ"));
 			console.log("This is the champ!", rhit.currentChampion);
 			document.querySelector("#selectButton").innerHTML = `<img src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${rhit.currentChampion.image.full}" alt="${rhit.currentChampion.name}" style="width:58%;">`;
-		}	
+		}
 		myStorage.clear();
 		this.updateItems();
 		rhit.updateChampStats();
@@ -695,15 +695,12 @@ rhit.main = function () {
 				const registerPassword = document.querySelector("#inputRegisterPassword");
 				const repeatPassword = document.querySelector("#inputRepeatPassword");
 				document.querySelector("#submitRegisterAccount").onclick = (event) => {
-					if (registerPassword == repeatPassword) {
-						console.log(`Registered email: ${registerEmail.value} password: ${registerPassword.value}`);
-						firebase.auth().createUserWithEmailAndPassword(registerEmail.value, registerPassword.value).catch((error) => {
+					firebase.auth().createUserWithEmailAndPassword(registerEmail.value, registerPassword.value)
+						.catch((error) => {
 							var errorCode = error.code;
 							var errorMessage = error.message;
 							console.log("Registering account error", errorCode, errorMessage);
 						});
-					}
-					console.log(`Created account: ${inputEmailEl.value} password: ${inputPasswordEl.value}`);
 					setTimeout(() => {
 						redirect();
 					}, 500);
