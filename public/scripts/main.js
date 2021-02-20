@@ -102,7 +102,7 @@ rhit.lawlManager = class {
 
 	add(itemArray, champion) {
 		this._ref.add({
-				[rhit.FB_KEY_AUTHOR]: this._uid,
+				[rhit.FB_KEY_AUTHOR]: rhit.displayName,
 				[rhit.FB_KEY_ITEMSET]: itemArray,
 				[rhit.FB_KEY_CHAMPION]: champion,
 				[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
