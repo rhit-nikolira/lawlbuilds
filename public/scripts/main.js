@@ -50,49 +50,49 @@ rhit.ItemSetManager = class {
 		var html8 = '';
 		if (savedData.itemArray[1]) {
 			html2 = `<div>
-						<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[1].image.full}" alt="${savedData.itemArray[1].name}">
+						<img class="itemIMG" src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[1].image.full}" alt="${savedData.itemArray[1].name}">
 					</div>`
 		}else {
 			html2 = `<div></div>`
 		}
 		if (savedData.itemArray[2]) {
 			html3 = `<div>
-						<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[2].image.full}" alt="${savedData.itemArray[2].name}">
+						<img class="itemIMG" src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[2].image.full}" alt="${savedData.itemArray[2].name}">
 					</div>`
 		}else {
 			html3 = `<div></div>`
 		}
 		if (savedData.itemArray[3]) {
 			html4 = `<div>
-						<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[3].image.full}" alt="${savedData.itemArray[3].name}">
+						<img class="itemIMG" src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[3].image.full}" alt="${savedData.itemArray[3].name}">
 					</div>`
 		}else {
 			html4 = `<div></div>`
 		}
 		if (savedData.itemArray[4]) {
 			html5 = `<div>
-						<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[4].image.full}" alt="${savedData.itemArray[4].name}">
+						<img class="itemIMG" src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[4].image.full}" alt="${savedData.itemArray[4].name}">
 					</div>`
 		}else {
 			html5 = `<div></div>`
 		}
 		if (savedData.itemArray[5]) {
 			html6 = `<div>
-						<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[5].image.full}" alt="${savedData.itemArray[5].name}">
+						<img class="itemIMG" src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[5].image.full}" alt="${savedData.itemArray[5].name}">
 					</div>`
 		}else {
 			html6 = `<div></div>`
 		}
 		if (savedData.itemArray[6]) {
 			html7 = `<div>
-						<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[6].image.full}" alt="${savedData.itemArray[6].name}">
+						<img class="itemIMG" src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${savedData.itemArray[6].image.full}" alt="${savedData.itemArray[6].name}">
 					</div>`
 		} else {
 			html7 = `<div></div>`
 		}
 		if (savedData.champion) {
 		html8 = `	<div>
-						<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${savedData.champion.image.full}" alt="${savedData.champion.name}" style="width:58%;">
+						<img src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${savedData.champion.image.full}" alt="${savedData.champion.name}" style="width:58%;">
 						</div>
 						<h5 class="card-subtitle mb-2 text-muted">${savedData.champion.name}</h5>`
 		} else {
@@ -463,7 +463,7 @@ rhit.buildManager = class {
 						const newInvItem = htmlToElement(`
 								<div class = "itemIMGcontainer">
 									<div>
-										<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}">
+										<img class="itemIMG" src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}">
 										<div class="tooltiptext">
 											<div class="itemname">${item.name}</div>
 											<div class="itemplaintext">${item.plaintext}</div>
@@ -489,7 +489,7 @@ rhit.buildManager = class {
 		if (JSON.parse(myStorage.getItem("champ"))) {
 			rhit.currentChampion = JSON.parse(myStorage.getItem("champ"));
 			console.log("This is the champ!", rhit.currentChampion);
-			document.querySelector("#selectButton").innerHTML = `<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${rhit.currentChampion.image.full}" alt="${rhit.currentChampion.name}" style="width:58%;">`;
+			document.querySelector("#selectButton").innerHTML = `<img src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${rhit.currentChampion.image.full}" alt="${rhit.currentChampion.name}" style="width:58%;">`;
 		}	
 		myStorage.clear();
 		this.updateItems();
@@ -506,7 +506,7 @@ rhit.buildManager = class {
 
 	getItems = function () {
 		// console.log("setting up xml");
-		let endpoint = "http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/item.json";
+		let endpoint = "https://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/item.json";
 		let url = endpoint
 
 		let xhr = new XMLHttpRequest();
@@ -519,7 +519,7 @@ rhit.buildManager = class {
 	getChamps = function () {
 		// console.log("setting up xml");
 		// let endpoint = "http://jsonviewer.stack.hu/#http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion.json";
-		let endpoint = "http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion.json";
+		let endpoint = "https://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion.json";
 		let url = endpoint
 
 		let xhr = new XMLHttpRequest();
@@ -555,7 +555,7 @@ rhit.buildManager = class {
 					const newItemCard = htmlToElement(`
 					<div class = "itemIMGcontainer">
 						<div>
-							<img class="itemIMG" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}">
+							<img class="itemIMG" src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}">
 							<div class="tooltiptext">
 								<div class="itemname">${item.name}</div>
 								<div class="itemplaintext">${item.plaintext}</div>
@@ -573,7 +573,7 @@ rhit.buildManager = class {
 								const newInvItem = htmlToElement(`
 								<div class = "itemIMGcontainer">
 									<div>
-										<img class="itemIMG-2" src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}">
+										<img class="itemIMG-2" src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/${item.image.full}" alt="${item.name}">
 										<div class="tooltiptext">
 											<div class="itemname">${item.name}</div>
 											<div class="itemplaintext">${item.plaintext}</div>
@@ -620,14 +620,14 @@ rhit.buildManager = class {
 					const newChampCard = htmlToElement(`
 					<div class ="grid-container">
 						<div class="grid-item">
-							<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}">
+							<img src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}">
 						</div>
 					</div>
 					`);
 					newChampCard.onclick = (event) => {
 						rhit.currentChampion = champ;
 						rhit.updateChampStats();
-						document.querySelector("#selectButton").innerHTML = `<img src="http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}" style="width:60%;">`;
+						document.querySelector("#selectButton").innerHTML = `<img src="https://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/${champ.image.full}" alt="${champ.name}" style="width:60%;">`;
 						// console.log("close modal");
 						setTimeout(() => {
 							$('#championModal').modal('hide');
